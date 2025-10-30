@@ -205,20 +205,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Form validation enhancement
-    const formInputs = contactForm.querySelectorAll('input, textarea');
-    formInputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (this.value.trim() === '' && this.hasAttribute('required')) {
-                this.style.borderColor = '#f44336';
-            } else {
-                this.style.borderColor = '';
-            }
-        });
+    if (contactForm) {
+        const formInputs = contactForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '' && this.hasAttribute('required')) {
+                    this.style.borderColor = '#f44336';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
 
-        input.addEventListener('focus', function() {
-            this.style.borderColor = '';
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '';
+            });
         });
-    });
+    }
 
     // Add animation to stats on scroll
     const statNumbers = document.querySelectorAll('.stat-number');
