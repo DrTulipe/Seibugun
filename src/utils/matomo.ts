@@ -27,18 +27,33 @@ export const initMatomo = (config: MatomoConfig = matomoConfig) => {
     // Initialiser _paq si ce n'est pas déjà fait
     window._paq = window._paq || []
 
-    // Configuration de base
+    // Configuration de base (comme le code Matomo officiel)
     window._paq.push(['trackPageView'])
     window._paq.push(['enableLinkTracking'])
+
+    // Configuration du tracker
     window._paq.push(['setTrackerUrl', config.urlBase + 'matomo.php'])
     window._paq.push(['setSiteId', config.siteId])
 
-    // Charger le script Matomo
+    // Charger le script Matomo avec l'URL CDN appropriée
     const script = document.createElement('script')
+    const firstScript = document.getElementsByTagName('script')[0]
     script.type = 'text/javascript'
     script.async = true
-    script.src = config.urlBase + 'matomo.js'
-    document.head.appendChild(script)
+
+    // Utiliser l'URL CDN pour Matomo Cloud ou l'URL locale pour self-hosted
+    if (config.urlBase.includes('matomo.cloud')) {
+        const subdomain = config.urlBase.match(/https:\/\/([^.]+)\.matomo\.cloud\//)?.[1]
+        if (subdomain) {
+            script.src = `https://cdn.matomo.cloud/${subdomain}.matomo.cloud/matomo.js`
+        } else {
+            script.src = config.urlBase + 'matomo.js'
+        }
+    } else {
+        script.src = config.urlBase + 'matomo.js'
+    }
+
+    firstScript.parentNode?.insertBefore(script, firstScript)
 }
 
 // Fonctions utilitaires pour le tracking
