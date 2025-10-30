@@ -1,0 +1,2 @@
+# Seibugun
+Guilde BDO
