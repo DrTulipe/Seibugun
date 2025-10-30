@@ -83,8 +83,11 @@ const About: React.FC = () => {
                     Taxi Vell
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Service de taxi pour Vell disponible pour tous les membres de la guilde.
-                    Facilite l'accès à ce boss majeur pour toute la communauté.
+                    Service de taxi pour Vell disponible pour tous les membres de la guilde.<br />
+                    <b>Départ de Velia :</b><br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Mercredi à <b>18h35</b><br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Dimanche à <b>15h35</b><br />
+                    <b>Possibilité de passer par Oquilla pour les retardataires</b>
                   </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -92,8 +95,8 @@ const About: React.FC = () => {
                     Boss de Guilde
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Rendez-vous hebdomadaire tous les dimanches à 21h pour affronter ensemble
-                    les boss et partager les récompenses.
+                    Rendez-vous hebdomadaire tous les dimanches à <b>21h</b> pour affronter
+                    les boss et obtenir les récompenses.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>

@@ -29,7 +29,7 @@ const Home: React.FC = () => {
             Seibugun recrute !
           </Typography>
           <Typography variant="h5" component="p" sx={{ mb: 4, opacity: 0.9 }}>
-            Guilde FR PvE, ouverte à tous - débutants, rerolls ou anciens briscards du grind
+            Guilde francophone PvE, ouverte à tous - débutants, rerolls ou anciens briscards du grind, les portes sont ouvertes !
           </Typography>
           <Button
             variant="contained"
@@ -47,7 +47,6 @@ const Home: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Features Section */}
       <Grid container spacing={4} sx={{ mb: 6 }}>
         <Grid item xs={12} md={4}>
           <Card sx={{ height: '100%', textAlign: 'center' }}>
@@ -92,7 +91,6 @@ const Home: React.FC = () => {
         </Grid>
       </Grid>
 
-      {/* Call to Action */}
       <Box
         sx={{
           backgroundColor: 'background.paper',
@@ -108,7 +106,14 @@ const Home: React.FC = () => {
           Au programme : Entraide, discussions détendues et progression commune.
           Pas de prise de tête, juste du fun et des objectifs à partager !
         </Typography>
-        <Button variant="contained" color="secondary" size="large">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          href="https://discord.gg/xejvGDwczy"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Rejoindre Discord
         </Button>
       </Box>

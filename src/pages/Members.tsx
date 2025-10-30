@@ -7,6 +7,7 @@ import {
   Grid,
   Avatar,
   Chip,
+  Link,
 } from '@mui/material'
 import { Person as PersonIcon } from '@mui/icons-material'
 
@@ -20,7 +21,6 @@ interface Member {
 }
 
 const Members: React.FC = () => {
-  // Données d'exemple - dans une vraie application, ces données viendraient d'une API
   const members: Member[] = [
     {
       id: 1,
@@ -34,7 +34,7 @@ const Members: React.FC = () => {
       id: 2,
       name: 'Naksu_ChoYeong',
       role: 'Conseiller',
-      activity: 'Navigation, Grind',
+      activity: 'PvP, Navigation, Grind',
       class: 'Sorceress',
       joinedDate: '2023-02-20',
     },
@@ -85,9 +85,9 @@ const Members: React.FC = () => {
       case 'Maître de Guilde':
         return 'error'
       case 'Officier':
-        return 'warning'
+        return 'info'
       default:
-        return 'primary'
+        return 'warning'
     }
   }
 
@@ -145,7 +145,7 @@ const Members: React.FC = () => {
           Seibugun recrute !
         </Typography>
         <Typography variant="body1" color="text.secondary" paragraph>
-          Guilde FR PvE, ouverte à tous - débutants, rerolls ou anciens briscards du grind.
+          Guilde francophone PvE, ouverte à tous - débutants, rerolls ou anciens briscards du grind.
         </Typography>
         <Typography variant="body1" color="text.secondary" paragraph>
           Au programme : Entraide, discussions détendues et progression commune.
@@ -154,7 +154,18 @@ const Members: React.FC = () => {
         <Typography variant="body1" color="text.secondary">
           Taxi Vell, Boss de guilde les dimanches à 21h, Discord avec guides en pagaille.
           <br />
-          <strong>Mp pour plus d'infos !</strong>
+          <strong>
+            Rejoignez le{' '}
+            <Link
+              href="https://discord.gg/xejvGDwczy"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="secondary"
+            >
+              Discord
+            </Link>
+            {' '}ou contactez un des officiers listés ci-dessus pour postuler.
+          </strong>
         </Typography>
       </Box>
     </Box>
