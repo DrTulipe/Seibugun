@@ -5,6 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import theme from './theme/theme.ts'
+import { initMatomo } from './utils/matomo.ts'
+
+// Initialiser Matomo
+initMatomo()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

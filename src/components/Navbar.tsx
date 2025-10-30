@@ -15,12 +15,14 @@ import {
 } from '@mui/material'
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material'
 import { Link, useLocation } from 'react-router-dom'
+import { useMatomo } from '../hooks/useMatomo'
 
 const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const location = useLocation()
+  const { trackEvent } = useMatomo()
 
   const menuItems = [
     { label: 'Accueil', path: '/' },
@@ -30,6 +32,11 @@ const Navbar: React.FC = () => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
+    trackEvent('Navigation', 'Mobile Menu Toggle', mobileOpen ? 'Close' : 'Open')
+  }
+
+  const handleNavClick = (label: string) => {
+    trackEvent('Navigation', 'Menu Click', label)
   }
 
   const drawer = (
@@ -45,7 +52,10 @@ const Navbar: React.FC = () => {
             key={item.path}
             component={Link}
             to={item.path}
-            onClick={handleDrawerToggle}
+            onClick={() => {
+              handleNavClick(item.label)
+              handleDrawerToggle()
+            }}
             sx={{
               color: location.pathname === item.path ? 'primary.main' : 'inherit',
               textDecoration: 'none',
@@ -112,6 +122,7 @@ const Navbar: React.FC = () => {
                   color="inherit"
                   component={Link}
                   to={item.path}
+                  onClick={() => handleNavClick(item.label)}
                   sx={{
                     color: location.pathname === item.path ? 'secondary.main' : 'inherit',
                   }}

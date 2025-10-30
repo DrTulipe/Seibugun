@@ -5,8 +5,12 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Members from './pages/Members'
 import Footer from './components/Footer'
+import { useMatomoPageTracker } from './hooks/useMatomo'
 
 function App() {
+  // Activer le suivi automatique des pages
+  useMatomoPageTracker()
+
   return (
     <div className="App">
       <Navbar />
