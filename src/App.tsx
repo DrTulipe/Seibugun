@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Container maxWidth="lg" sx={{ minHeight: 'calc(100vh - 140px)', py: 4 }}>
+      <Container maxWidth="lg" sx={{ minHeight: 'calc(100vh - 140px)', py: 4, pt: { xs: 10, sm: 12 } }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

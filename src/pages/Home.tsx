@@ -7,8 +7,10 @@ import {
   CardContent,
   Grid,
   Container,
+  Stack,
 } from '@mui/material'
 import { Group as GroupIcon, Games as GamesIcon, Star as StarIcon } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
   return (
@@ -25,25 +27,60 @@ const Home: React.FC = () => {
         }}
       >
         <Container maxWidth="md">
+          <Box
+            component="img"
+            src="/seibugun_ico.jpg"
+            alt="Seibugun Logo"
+            sx={{
+              height: 80,
+              width: 80,
+              borderRadius: '50%',
+              objectFit: 'cover',
+              mb: 3,
+              border: '3px solid white',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            }}
+          />
           <Typography variant="h2" component="h1" gutterBottom>
             Seibugun recrute !
           </Typography>
           <Typography variant="h5" component="p" sx={{ mb: 4, opacity: 0.9 }}>
             Guilde francophone PvE, ouverte à tous - débutants, rerolls ou anciens briscards du grind, les portes sont ouvertes !
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              backgroundColor: 'white',
-              color: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'grey.100',
-              },
-            }}
-          >
-            Nous rejoindre
-          </Button>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+            <Button
+              variant="contained"
+              size="large"
+              href="https://discord.gg/xejvGDwczy"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                backgroundColor: 'white',
+                color: 'primary.main',
+                '&:hover': {
+                  backgroundColor: 'grey.100',
+                },
+              }}
+            >
+              Rejoindre Discord
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              component={Link}
+              to="/members"
+              sx={{
+                borderColor: 'white',
+                color: 'white',
+                '&:hover': {
+                  borderColor: 'white',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+            >
+              Voir les membres
+            </Button>
+          </Stack>
         </Container>
       </Box>
 
@@ -70,7 +107,7 @@ const Home: React.FC = () => {
                 Boss de Guilde
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                Rendez-vous tous les dimanches à 21h et taxi Vell disponible
+                Rendez-vous tous les dimanches à 21h pour les boss de Guilde, départ au Boustre géant. Taxi Vell disponible
               </Typography>
             </CardContent>
           </Card>

@@ -60,21 +60,40 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
-          <Typography
-            variant="h6"
+          <Box
             component={Link}
             to="/"
             sx={{
               flexGrow: 1,
               textDecoration: 'none',
               color: 'inherit',
-              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
             }}
           >
-            Seibugun
-          </Typography>
+            <Box
+              component="img"
+              src="/seibugun_ico.jpg"
+              alt="Seibugun Logo"
+              sx={{
+                height: 32,
+                width: 32,
+                borderRadius: '50%',
+                objectFit: 'cover',
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 'bold',
+              }}
+            >
+              Seibugun
+            </Typography>
+          </Box>
 
           {isMobile ? (
             <IconButton
