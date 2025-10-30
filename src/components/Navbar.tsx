@@ -1,0 +1,123 @@
+import React, { useState } from 'react'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material'
+import { Link, useLocation } from 'react-router-dom'
+
+const Navbar: React.FC = () => {
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const location = useLocation()
+
+  const menuItems = [
+    { label: 'Accueil', path: '/' },
+    { label: 'À propos', path: '/about' },
+    { label: 'Membres', path: '/members' },
+  ]
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen)
+  }
+
+  const drawer = (
+    <Box sx={{ width: 250 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+        <IconButton onClick={handleDrawerToggle}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+      <List>
+        {menuItems.map((item) => (
+          <ListItem
+            key={item.path}
+            component={Link}
+            to={item.path}
+            onClick={handleDrawerToggle}
+            sx={{
+              color: location.pathname === item.path ? 'primary.main' : 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <ListItemText primary={item.label} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  )
+
+  return (
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{
+              flexGrow: 1,
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 'bold',
+            }}
+          >
+            Seibugun
+          </Typography>
+
+          {isMobile ? (
+            <IconButton
+              color="inherit"
+              aria-label="ouvrir menu"
+              edge="start"
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              {menuItems.map((item) => (
+                <Button
+                  key={item.path}
+                  color="inherit"
+                  component={Link}
+                  to={item.path}
+                  sx={{
+                    color: location.pathname === item.path ? 'secondary.main' : 'inherit',
+                  }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Box>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        variant="temporary"
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true,
+        }}
+      >
+        {drawer}
+      </Drawer>
+    </>
+  )
+}
+
+export default Navbar

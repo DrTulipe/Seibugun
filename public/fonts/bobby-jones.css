@@ -1,0 +1,30 @@
+/* 
+  Instructions pour utiliser la police Bobby Jones de Canva :
+  
+  1. Téléchargez les fichiers de police Bobby Jones depuis Canva
+  2. Placez les fichiers (.woff, .woff2, .ttf) dans ce dossier
+  3. Décommentez les règles @font-face ci-dessous
+  4. Ajustez les noms de fichiers selon ceux que vous avez
+*/
+
+/*
+@font-face {
+  font-family: 'Bobby Jones';
+  src: url('/fonts/BobbyJones-Regular.woff2') format('woff2'),
+       url('/fonts/BobbyJones-Regular.woff') format('woff'),
+       url('/fonts/BobbyJones-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bobby Jones';
+  src: url('/fonts/BobbyJones-Bold.woff2') format('woff2'),
+       url('/fonts/BobbyJones-Bold.woff') format('woff'),
+       url('/fonts/BobbyJones-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
