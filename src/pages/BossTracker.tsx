@@ -17,6 +17,7 @@ import {
     Checkbox,
 } from '@mui/material'
 import { useMatomo } from '../hooks/useMatomo'
+import BossGuideModal from '../components/BossGuideModal'
 import {
     Schedule as ScheduleIcon,
     AccessTime as TimeIcon,
@@ -29,6 +30,7 @@ import {
     Settings as SettingsIcon,
     ExpandMore as ExpandMoreIcon,
     ExpandLess as ExpandLessIcon,
+    Info as InfoIcon,
 } from '@mui/icons-material'
 
 // Types pour les données des boss
@@ -451,6 +453,9 @@ const BossTracker: React.FC = () => {
     const [classicBossesExpanded, setClassicBossesExpanded] = useState(initialPrefs.showClassicBosses)
     const [radiantBossesExpanded, setRadiantBossesExpanded] = useState(initialPrefs.showRadiantBosses)
 
+    // État pour la modal de guide
+    const [selectedBossForGuide, setSelectedBossForGuide] = useState<{ bossId: string; bossColor: string } | null>(null)
+
     // Fonctions wrapper avec tracking Matomo
     const handleCompactModeChange = (checked: boolean) => {
         setIsCompactMode(checked)
@@ -714,6 +719,7 @@ const BossTracker: React.FC = () => {
                 height: '100%',
                 borderLeft: `4px solid ${boss.color}`,
                 backgroundColor: isUrgent ? `${boss.color}10` : 'background.paper',
+                position: 'relative',
                 '&:hover': {
                     transform: 'translateY(-2px)',
                     transition: 'transform 0.2s ease-in-out',
@@ -726,7 +732,7 @@ const BossTracker: React.FC = () => {
                     // Mode compact
                     <Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', flex: 1, mr: 1 }}>
                                 <Avatar
                                     sx={{
                                         bgcolor: boss.color,
@@ -738,7 +744,7 @@ const BossTracker: React.FC = () => {
                                 >
                                     {boss.name.charAt(0)}
                                 </Avatar>
-                                <Box>
+                                <Box sx={{ flex: 1 }}>
                                     <Typography variant="subtitle1" component="h3">
                                         {boss.name}
                                     </Typography>
@@ -747,19 +753,40 @@ const BossTracker: React.FC = () => {
                                     </Typography>
                                 </Box>
                             </Box>
-                            <Box sx={{ textAlign: 'right' }}>
-                                <Typography variant="h6" sx={{ color: boss.color, fontWeight: 'bold' }}>
-                                    {timeUntil}
-                                </Typography>
-                                {isUrgent && (
-                                    <Chip
-                                        label="BIENTÔT !"
-                                        size="small"
-                                        color="error"
-                                        variant="filled"
-                                        sx={{ fontSize: '0.7rem' }}
-                                    />
-                                )}
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <Box sx={{ textAlign: 'right' }}>
+                                    <Typography variant="h6" sx={{ color: boss.color, fontWeight: 'bold' }}>
+                                        {timeUntil}
+                                    </Typography>
+                                    {isUrgent && (
+                                        <Chip
+                                            label="BIENTÔT !"
+                                            size="small"
+                                            color="error"
+                                            variant="filled"
+                                            sx={{ fontSize: '0.7rem' }}
+                                        />
+                                    )}
+                                </Box>
+                                {/* Bouton d'information intégré en mode compact */}
+                                <IconButton
+                                    onClick={() => {
+                                        setSelectedBossForGuide({ bossId: boss.id, bossColor: boss.color })
+                                        trackEvent('Boss Tracker', 'Guide Modal', `Opened ${boss.name}`)
+                                    }}
+                                    sx={{
+                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(255, 255, 255, 1)',
+                                            transform: 'scale(1.1)'
+                                        },
+                                        width: 28,
+                                        height: 28
+                                    }}
+                                    size="small"
+                                >
+                                    <InfoIcon fontSize="small" sx={{ color: boss.color }} />
+                                </IconButton>
                             </Box>
                         </Box>
                         <LinearProgress
@@ -777,7 +804,31 @@ const BossTracker: React.FC = () => {
                     </Box>
                 ) : (
                     // Mode étendu
-                    <Box>
+                    <Box sx={{ position: 'relative' }}>
+                        {/* Bouton d'information en position absolue pour le mode étendu */}
+                        <IconButton
+                            onClick={() => {
+                                setSelectedBossForGuide({ bossId: boss.id, bossColor: boss.color })
+                                trackEvent('Boss Tracker', 'Guide Modal', `Opened ${boss.name}`)
+                            }}
+                            sx={{
+                                position: 'absolute',
+                                top: -8,
+                                right: -8,
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                '&:hover': {
+                                    backgroundColor: 'rgba(255, 255, 255, 1)',
+                                    transform: 'scale(1.1)'
+                                },
+                                zIndex: 2,
+                                width: 32,
+                                height: 32
+                            }}
+                            size="small"
+                        >
+                            <InfoIcon fontSize="small" sx={{ color: boss.color }} />
+                        </IconButton>
+
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                             <Avatar
                                 sx={{
@@ -1225,6 +1276,9 @@ const BossTracker: React.FC = () => {
                 <Typography variant="body2" color="text.secondary">
                     • Les horaires sont basés sur le fuseau horaire CET/CEST (Paris)
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    • Les horaires sont basés sur le fuseau horaire CET/CEST (Paris)
+                </Typography>
             </Box>
 
             {/* Snackbar pour les messages de notification */}
@@ -1242,6 +1296,16 @@ const BossTracker: React.FC = () => {
                     {snackbar.message}
                 </Alert>
             </Snackbar>
+
+            {/* Modal de guide de boss */}
+            {selectedBossForGuide && (
+                <BossGuideModal
+                    open={Boolean(selectedBossForGuide)}
+                    onClose={() => setSelectedBossForGuide(null)}
+                    bossId={selectedBossForGuide.bossId}
+                    bossColor={selectedBossForGuide.bossColor}
+                />
+            )}
         </Box>
     )
 }
