@@ -78,6 +78,14 @@ const Members: React.FC = () => {
       class: 'Tamer',
       joinedDate: '2023-06-18',
     },
+    {
+      id: 8,
+      name: 'Lysvent',
+      role: 'Officier',
+      activity: 'Grind, Lifeskill, Navigation, Troc',
+      class: 'Tamer',
+      joinedDate: '2023-06-18',
+    },
   ]
 
   const getRoleColor = (role: string) => {
