@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import About from './pages/About'
 import Members from './pages/Members'
+import BossTracker from './pages/BossTracker'
 import Footer from './components/Footer'
 import { useMatomoPageTracker } from './hooks/useMatomo'
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/members" element={<Members />} />
+          <Route path="/boss-tracker" element={<BossTracker />} />
         </Routes>
       </Container>
       <Footer />
