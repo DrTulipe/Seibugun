@@ -20,13 +20,15 @@ import {
 } from '@mui/icons-material'
 import TrocGuideModal from '../components/TrocGuideModal'
 import AlchemyGuideModal from '../components/AlchemyGuideModal'
+import InfinitePotionsGuideModal from '../components/InfinitePotionsGuideModal'
 
 const Guides: React.FC = () => {
     const [trocModalOpen, setTrocModalOpen] = useState(false)
     const [alchemyModalOpen, setAlchemyModalOpen] = useState(false)
+    const [infinitePotionsModalOpen, setInfinitePotionsModalOpen] = useState(false)
 
     // Liste des guides disponibles avec modal
-    const availableGuides = ['Troc', 'Alchimie']
+    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)']
 
     const isGuideAvailable = (guideName: string) => {
         return availableGuides.includes(guideName)
@@ -41,6 +43,8 @@ const Guides: React.FC = () => {
             setTrocModalOpen(true)
         } else if (guideName === 'Alchimie') {
             setAlchemyModalOpen(true)
+        } else if (guideName === 'Potions infinies (HP et MP)') {
+            setInfinitePotionsModalOpen(true)
         }
     }
 
@@ -60,14 +64,15 @@ const Guides: React.FC = () => {
         {
             title: 'Progression PvE',
             description: 'Optimisez votre progression en PvE',
-            icon: <ProgressIcon sx={{ fontSize: 48, color: 'secondary.main' }} />,
+            icon: <ProgressIcon sx={{ fontSize: 48, color: '#c200b2' }} />,
             guides: [
+                { name: 'Personnages saisonniers', icon: '👤' },
                 { name: 'Spots de grind recommandés', icon: '📍' },
                 { name: 'Optimisation de l\'équipement', icon: '⚔️' },
-                { name: 'Rotation des compétences', icon: '🔄' },
                 { name: 'Gestion des ressources', icon: '📊' },
+                { name: 'Potions infinies (HP et MP)', icon: '🧪' },
             ],
-            color: 'secondary.main',
+            color: '#c200b2',
         },
         {
             title: 'Activités de Guilde',
@@ -85,9 +90,8 @@ const Guides: React.FC = () => {
             description: 'Guides spécialisés par classe',
             icon: <GameIcon sx={{ fontSize: 48, color: 'info.main' }} />,
             guides: [
-                { name: 'Builds PvE optimaux', icon: '📈' },
+                { name: 'Cristaux', icon: '📈' },
                 { name: 'Succession vs Éveil', icon: '🔀' },
-                { name: 'Combos avancés', icon: '💥' },
                 { name: 'Équipement recommandé', icon: '🎯' },
             ],
             color: 'info.main',
@@ -116,10 +120,10 @@ const Guides: React.FC = () => {
             description: 'Stratégies et techniques de combat joueur',
             icon: <DefenseIcon sx={{ fontSize: 48, color: 'error.main' }} />,
             guides: [
-                { name: 'Combos PvP par classe', icon: '⚡' },
+                { name: 'Stratégies Arène de Solare', icon: '⚡' },
                 { name: 'Gestion des CCs en PvP', icon: '🎯' },
                 { name: 'Node Wars & Siege', icon: '🏰' },
-                { name: 'Arsha et RBF', icon: '⚔️' },
+                { name: 'Serveur Arsha', icon: '⚔️' },
             ],
             color: 'error.main',
         },
@@ -298,6 +302,12 @@ const Guides: React.FC = () => {
             <AlchemyGuideModal
                 open={alchemyModalOpen}
                 onClose={() => setAlchemyModalOpen(false)}
+            />
+
+            {/* Modal du Guide des Potions Infinies */}
+            <InfinitePotionsGuideModal
+                open={infinitePotionsModalOpen}
+                onClose={() => setInfinitePotionsModalOpen(false)}
             />
         </Box>
     )
