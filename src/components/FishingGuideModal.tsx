@@ -274,7 +274,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 <Divider sx={{ my: 3 }} />
 
                 <Accordion defaultExpanded>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Cannes à Pêche')}
                     >
@@ -325,7 +325,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Équipement Maîtrise')}
                     >
@@ -375,7 +375,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Spots de Pêche')}
                     >
@@ -427,7 +427,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Grades Poissons')}
                     >
@@ -469,7 +469,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Configuration AFK')}
                     >
@@ -499,7 +499,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Vente et Profits')}
                     >
@@ -542,7 +542,7 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary 
+                    <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Hotspots')}
                     >
