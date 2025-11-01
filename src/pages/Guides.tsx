@@ -21,14 +21,16 @@ import {
 import TrocGuideModal from '../components/TrocGuideModal'
 import AlchemyGuideModal from '../components/AlchemyGuideModal'
 import InfinitePotionsGuideModal from '../components/InfinitePotionsGuideModal'
+import AgricultureGuideModal from '../components/AgricultureGuideModal'
 
 const Guides: React.FC = () => {
     const [trocModalOpen, setTrocModalOpen] = useState(false)
     const [alchemyModalOpen, setAlchemyModalOpen] = useState(false)
     const [infinitePotionsModalOpen, setInfinitePotionsModalOpen] = useState(false)
+    const [agricultureModalOpen, setAgricultureModalOpen] = useState(false)
 
     // Liste des guides disponibles avec modal
-    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)']
+    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)', 'Agriculture']
 
     const isGuideAvailable = (guideName: string) => {
         return availableGuides.includes(guideName)
@@ -45,6 +47,8 @@ const Guides: React.FC = () => {
             setAlchemyModalOpen(true)
         } else if (guideName === 'Potions infinies (HP et MP)') {
             setInfinitePotionsModalOpen(true)
+        } else if (guideName === 'Agriculture') {
+            setAgricultureModalOpen(true)
         }
     }
 
@@ -308,6 +312,12 @@ const Guides: React.FC = () => {
             <InfinitePotionsGuideModal
                 open={infinitePotionsModalOpen}
                 onClose={() => setInfinitePotionsModalOpen(false)}
+            />
+
+            {/* Modal du Guide d'Agriculture */}
+            <AgricultureGuideModal
+                open={agricultureModalOpen}
+                onClose={() => setAgricultureModalOpen(false)}
             />
         </Box>
     )
