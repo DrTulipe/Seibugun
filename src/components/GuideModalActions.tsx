@@ -3,16 +3,20 @@ import {
     DialogActions,
     Button,
 } from '@mui/material'
+import { useMatomo } from '../hooks/useMatomo'
 
 interface GuideModalActionsProps {
     onClose: () => void
     discordText?: string
+    guideName?: string
 }
 
 const GuideModalActions: React.FC<GuideModalActionsProps> = ({
     onClose,
-    discordText = "💬 Questions sur Discord"
+    discordText = "💬 Questions sur Discord",
+    guideName = "Guide"
 }) => {
+    const { trackEvent } = useMatomo()
     return (
         <DialogActions sx={{ p: 3 }}>
             <Button
@@ -22,10 +26,17 @@ const GuideModalActions: React.FC<GuideModalActionsProps> = ({
                 color="info"
                 rel="noopener noreferrer"
                 sx={{ mr: 'auto' }}
+                onClick={() => trackEvent('Guide', 'Discord_Click', guideName)}
             >
                 {discordText}
             </Button>
-            <Button variant="contained" onClick={onClose}>
+            <Button
+                variant="contained"
+                onClick={() => {
+                    trackEvent('Guide', 'Close', guideName)
+                    onClose()
+                }}
+            >
                 Fermer
             </Button>
         </DialogActions>

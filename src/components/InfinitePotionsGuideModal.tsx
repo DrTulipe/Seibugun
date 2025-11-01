@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Dialog,
     DialogTitle,
@@ -30,6 +30,7 @@ import {
     Warning as WarningIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
+import { useMatomo } from '../hooks/useMatomo'
 
 interface InfinitePotionsGuideModalProps {
     open: boolean
@@ -37,6 +38,14 @@ interface InfinitePotionsGuideModalProps {
 }
 
 const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ open, onClose }) => {
+    const { trackEvent } = useMatomo()
+
+    // Tracker l'ouverture du guide
+    useEffect(() => {
+        if (open) {
+            trackEvent('Guide', 'Open', 'Potions Infinies')
+        }
+    }, [open, trackEvent])
     const hpPotionPieces = [
         {
             name: "Remède des Sherekhans ancestral",
@@ -208,7 +217,14 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
                 </Box>
 
                 {/* Potion HP */}
-                <Accordion defaultExpanded>
+                <Accordion
+                    defaultExpanded
+                    onChange={(_event, isExpanded) => {
+                        if (isExpanded) {
+                            trackEvent('Guide', 'Section_Expand', 'Potions Infinies - HP Potion')
+                        }
+                    }}
+                >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <HealthIcon color="error" />
@@ -362,7 +378,13 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
                 </Accordion>
 
                 {/* Potion MP */}
-                <Accordion>
+                <Accordion
+                    onChange={(_event, isExpanded) => {
+                        if (isExpanded) {
+                            trackEvent('Guide', 'Section_Expand', 'Potions Infinies - MP Potion')
+                        }
+                    }}
+                >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <ManaIcon color="info" />
@@ -512,7 +534,13 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
                 </Accordion>
 
                 {/* Échange Atanis' Element */}
-                <Accordion>
+                <Accordion
+                    onChange={(_event, isExpanded) => {
+                        if (isExpanded) {
+                            trackEvent('Guide', 'Section_Expand', 'Potions Infinies - Atanis Element')
+                        }
+                    }}
+                >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <MoneyIcon color="warning" />
@@ -569,7 +597,13 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
                 </Accordion>
 
                 {/* Conseils généraux */}
-                <Accordion>
+                <Accordion
+                    onChange={(_event, isExpanded) => {
+                        if (isExpanded) {
+                            trackEvent('Guide', 'Section_Expand', 'Potions Infinies - Conseils')
+                        }
+                    }}
+                >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                             <WarningIcon color="info" />
@@ -613,7 +647,11 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
                 </Accordion>
             </DialogContent>
 
-            <GuideModalActions onClose={onClose} discordText="Besoin d'aide avec les potions infinies ?" />
+            <GuideModalActions
+                onClose={onClose}
+                discordText="Besoin d'aide avec les potions infinies ?"
+                guideName="Potions Infinies"
+            />
         </Dialog>
     )
 }
