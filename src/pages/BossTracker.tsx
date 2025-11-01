@@ -973,7 +973,7 @@ const BossTracker: React.FC = () => {
                                                 size="small"
                                             />
                                         }
-                                        label="Trier par urgence"
+                                        label="Trier par ordre d'apparition"
                                     />
 
                                 </Box>
