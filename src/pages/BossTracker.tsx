@@ -13,11 +13,8 @@ import {
     Button,
     Snackbar,
     Alert,
-    Tooltip,
     IconButton,
     Checkbox,
-    FormGroup,
-    Divider,
 } from '@mui/material'
 import {
     Schedule as ScheduleIcon,
@@ -28,10 +25,10 @@ import {
     NotificationsOff as NotificationOffIcon,
     VolumeUp as SoundIcon,
     Sort as SortIcon,
-    Timer as TimerIcon,
     Settings as SettingsIcon,
     ExpandMore as ExpandMoreIcon,
-    ExpandLess as ExpandLessIcon
+    ExpandLess as ExpandLessIcon,
+    PlayArrow as TestIcon
 } from '@mui/icons-material'
 
 // Types pour les données des boss
@@ -45,7 +42,7 @@ interface Boss {
     name: string
     color: string
     spawns: BossSpawn[]
-    category: 'field' | 'world'
+    category: 'field' | 'world' | 'radiant'
 }
 
 // Données des boss basées sur le calendrier fourni
@@ -209,6 +206,78 @@ const bossesData: Boss[] = [
             { day: 6, time: '23:15' }, // Dimanche
         ]
     },
+    // Boss du Matin Radieux
+    {
+        id: 'bulgasal',
+        name: 'Bulgasal',
+        color: '#e91e63',
+        category: 'radiant',
+        spawns: [
+            { day: 0, time: '02:00' }, // Lundi
+            { day: 1, time: '19:00' }, // Mardi
+            { day: 2, time: '16:00' }, // Mercredi
+            { day: 3, time: '19:00' }, // Jeudi
+            { day: 4, time: '02:00' }, // Vendredi
+            { day: 4, time: '19:00' }, // Vendredi
+            { day: 5, time: '02:00' }, // Samedi
+            { day: 6, time: '22:15' }, // Dimanche
+        ]
+    },
+    {
+        id: 'uturi',
+        name: 'Uturi',
+        color: '#00bcd4',
+        category: 'radiant',
+        spawns: [
+            { day: 0, time: '00:15' }, // Lundi
+            { day: 0, time: '16:00' }, // Lundi
+            { day: 2, time: '16:00' }, // Mercredi
+            { day: 3, time: '16:00' }, // Jeudi
+            { day: 4, time: '00:15' }, // Vendredi
+            { day: 5, time: '16:00' }, // Samedi
+            { day: 6, time: '00:15' }, // Dimanche
+            { day: 6, time: '22:15' }, // Dimanche
+        ]
+    },
+    {
+        id: 'sangoon',
+        name: 'Sangoon',
+        color: '#4caf50',
+        category: 'radiant',
+        spawns: [
+            { day: 0, time: '02:00' }, // Lundi
+            { day: 1, time: '02:00' }, // Mardi
+            { day: 1, time: '16:00' }, // Mardi
+            { day: 2, time: '02:00' }, // Mercredi
+            { day: 4, time: '16:00' }, // Vendredi
+            { day: 4, time: '19:00' }, // Vendredi
+            { day: 5, time: '19:00' }, // Samedi
+            { day: 6, time: '22:15' }, // Dimanche
+        ]
+    },
+    {
+        id: 'golden-pig-king',
+        name: 'Golden Pig King',
+        color: '#ffc107',
+        category: 'radiant',
+        spawns: [
+            { day: 0, time: '02:00' }, // Lundi
+            { day: 0, time: '12:00' }, // Lundi
+            { day: 1, time: '02:00' }, // Mardi
+            { day: 1, time: '16:00' }, // Mardi
+            { day: 1, time: '19:00' }, // Mardi
+            { day: 2, time: '02:00' }, // Mercredi
+            { day: 2, time: '12:00' }, // Mercredi
+            { day: 2, time: '22:15' }, // Mercredi
+            { day: 3, time: '12:00' }, // Jeudi
+            { day: 4, time: '02:00' }, // Vendredi
+            { day: 4, time: '16:00' }, // Vendredi
+            { day: 4, time: '19:00' }, // Vendredi
+            { day: 5, time: '16:00' }, // Samedi
+            { day: 5, time: '19:00' }, // Samedi
+            { day: 6, time: '22:15' }, // Dimanche
+        ]
+    },
 ]
 
 // Fonction pour calculer le prochain spawn d'un boss
@@ -284,6 +353,8 @@ interface BossTrackerPreferences {
         min30: boolean
     }
     configExpanded: boolean
+    showClassicBosses: boolean
+    showRadiantBosses: boolean
 }
 
 const STORAGE_KEY = 'seibugun-boss-tracker-preferences'
@@ -313,7 +384,9 @@ const BossTracker: React.FC = () => {
             min15: true,
             min30: false
         },
-        configExpanded: false
+        configExpanded: false,
+        showClassicBosses: true,
+        showRadiantBosses: true
     })
 
     // Fonction pour sauvegarder les préférences
@@ -342,6 +415,8 @@ const BossTracker: React.FC = () => {
     const [sortByUrgency, setSortByUrgency] = useState(initialPrefs.sortByUrgency)
     const [notificationIntervals, setNotificationIntervals] = useState(initialPrefs.notificationIntervals)
     const [configExpanded, setConfigExpanded] = useState(initialPrefs.configExpanded)
+    const [classicBossesExpanded, setClassicBossesExpanded] = useState(initialPrefs.showClassicBosses)
+    const [radiantBossesExpanded, setRadiantBossesExpanded] = useState(initialPrefs.showRadiantBosses)
 
     // Vérifier les permissions de notification au chargement
     useEffect(() => {
@@ -358,10 +433,12 @@ const BossTracker: React.FC = () => {
             soundEnabled,
             sortByUrgency,
             notificationIntervals,
-            configExpanded
+            configExpanded,
+            showClassicBosses: classicBossesExpanded,
+            showRadiantBosses: radiantBossesExpanded
         }
         savePreferences(preferences)
-    }, [isCompactMode, notificationsEnabled, soundEnabled, sortByUrgency, notificationIntervals, configExpanded])
+    }, [isCompactMode, notificationsEnabled, soundEnabled, sortByUrgency, notificationIntervals, configExpanded, classicBossesExpanded, radiantBossesExpanded])
 
     // Fonction pour demander la permission de notification
     const requestNotificationPermission = async () => {
@@ -385,24 +462,65 @@ const BossTracker: React.FC = () => {
         }
     }
 
-    // Fonction pour jouer un son de notification
-    const playNotificationSound = () => {
+    // Fonction pour annoncer vocalement la notification
+    const playNotificationSound = (minutes: number) => {
         if (soundEnabled) {
-            // Créer un son simple avec l'API Web Audio
-            const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
-            const oscillator = audioContext.createOscillator()
-            const gainNode = audioContext.createGain()
+            // Utiliser l'API Web Speech Synthesis pour la voix
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(
+                    `Un boss apparaît dans ${minutes} minutes`
+                )
 
-            oscillator.connect(gainNode)
-            gainNode.connect(audioContext.destination)
+                // Configuration de la voix
+                utterance.lang = 'fr-FR' // Français
+                utterance.rate = 1 // Vitesse un peu plus lente pour être clair
+                utterance.pitch = 1.0 // Ton normal
+                utterance.volume = 0.7 // Volume modéré
 
-            oscillator.frequency.value = 800
-            oscillator.type = 'sine'
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5)
+                // Essayer de trouver une voix française masculine
+                const voices = speechSynthesis.getVoices()
+                const frenchMaleVoice = voices.find(voice =>
+                    (voice.lang.startsWith('fr') || voice.lang.startsWith('fr-FR')) &&
+                    (voice.name.toLowerCase().includes('male') ||
+                        voice.name.toLowerCase().includes('homme') ||
+                        voice.name.toLowerCase().includes('masculin') ||
+                        voice.name.toLowerCase().includes('thomas') ||
+                        voice.name.toLowerCase().includes('daniel') ||
+                        voice.name.toLowerCase().includes('paul'))
+                ) || voices.find(voice => // Fallback vers n'importe quelle voix française
+                    voice.lang.startsWith('fr') || voice.lang.startsWith('fr-FR')
+                )
 
-            oscillator.start(audioContext.currentTime)
-            oscillator.stop(audioContext.currentTime + 0.5)
+                if (frenchMaleVoice) {
+                    utterance.voice = frenchMaleVoice
+                }
+
+                // Prononcer le message
+                speechSynthesis.speak(utterance)
+            } else {
+                // Fallback vers le son généré si Speech Synthesis n'est pas disponible
+                try {
+                    const AudioContextClass = (window as any).AudioContext || (window as any).webkitAudioContext
+                    if (AudioContextClass) {
+                        const audioContext = new AudioContextClass()
+                        const oscillator = audioContext.createOscillator()
+                        const gainNode = audioContext.createGain()
+
+                        oscillator.connect(gainNode)
+                        gainNode.connect(audioContext.destination)
+
+                        oscillator.frequency.value = 800
+                        oscillator.type = 'sine'
+                        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5)
+
+                        oscillator.start(audioContext.currentTime)
+                        oscillator.stop(audioContext.currentTime + 0.5)
+                    }
+                } catch (error) {
+                    console.warn('Audio Context non disponible:', error)
+                }
+            }
         }
     }
 
@@ -415,10 +533,42 @@ const BossTracker: React.FC = () => {
                 tag: `${boss.id}-${interval}`,
             })
 
-            playNotificationSound()
+            playNotificationSound(interval)
 
             // Fermer automatiquement après 10 secondes
             setTimeout(() => notification.close(), 10000)
+        }
+    }
+
+    // Fonction de test pour les notifications
+    const testNotification = () => {
+        const testBoss: Boss = {
+            id: 'test',
+            name: 'Karanda',
+            color: '#9c27b0',
+            category: 'world',
+            spawns: []
+        }
+
+        if (notificationPermission === 'granted') {
+            sendNotification(testBoss, '15 minutes', 15)
+            setSnackbar({
+                open: true,
+                message: 'Notification de test envoyée ! 🔔',
+                severity: 'success'
+            })
+        } else if (notificationPermission === 'default') {
+            setSnackbar({
+                open: true,
+                message: 'Veuillez d\'abord autoriser les notifications',
+                severity: 'warning'
+            })
+        } else {
+            setSnackbar({
+                open: true,
+                message: 'Notifications refusées dans votre navigateur',
+                severity: 'error'
+            })
         }
     }
 
@@ -503,14 +653,168 @@ const BossTracker: React.FC = () => {
         return totalMinutes
     }
 
-    // Données des boss triées selon les préférences
-    const sortedBossesData = sortByUrgency
-        ? [...bossesData].sort((a, b) => {
+    // Séparer les boss par catégories
+    const classicBosses = bossesData.filter(boss => boss.category === 'world' || boss.category === 'field')
+    const radiantBosses = bossesData.filter(boss => boss.category === 'radiant')
+
+    // Trier chaque catégorie séparément si nécessaire
+    const sortedClassicBosses = sortByUrgency
+        ? [...classicBosses].sort((a, b) => {
             const timeA = getMinutesFromTimeUntil(getNextSpawn(a).timeUntil)
             const timeB = getMinutesFromTimeUntil(getNextSpawn(b).timeUntil)
             return timeA - timeB
         })
-        : bossesData
+        : classicBosses
+
+    const sortedRadiantBosses = sortByUrgency
+        ? [...radiantBosses].sort((a, b) => {
+            const timeA = getMinutesFromTimeUntil(getNextSpawn(a).timeUntil)
+            const timeB = getMinutesFromTimeUntil(getNextSpawn(b).timeUntil)
+            return timeA - timeB
+        })
+        : radiantBosses
+
+    // Fonction pour rendre une card de boss
+    const renderBossCard = (boss: Boss, nextSpawn: Date, timeUntil: string, progress: number, isUrgent: boolean) => (
+        <Card
+            sx={{
+                height: '100%',
+                borderLeft: `4px solid ${boss.color}`,
+                backgroundColor: isUrgent ? `${boss.color}10` : 'background.paper',
+                '&:hover': {
+                    transform: 'translateY(-2px)',
+                    transition: 'transform 0.2s ease-in-out',
+                    boxShadow: 3,
+                }
+            }}
+        >
+            <CardContent sx={{ p: isCompactMode ? 2 : 3 }}>
+                {isCompactMode ? (
+                    // Mode compact
+                    <Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Avatar
+                                    sx={{
+                                        bgcolor: boss.color,
+                                        mr: 2,
+                                        width: 32,
+                                        height: 32,
+                                        fontSize: '1rem'
+                                    }}
+                                >
+                                    {boss.name.charAt(0)}
+                                </Avatar>
+                                <Box>
+                                    <Typography variant="subtitle1" component="h3">
+                                        {boss.name}
+                                    </Typography>
+                                    <Typography variant="caption" color="text.secondary">
+                                        {nextSpawn.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Box sx={{ textAlign: 'right' }}>
+                                <Typography variant="h6" sx={{ color: boss.color, fontWeight: 'bold' }}>
+                                    {timeUntil}
+                                </Typography>
+                                {isUrgent && (
+                                    <Chip
+                                        label="BIENTÔT !"
+                                        size="small"
+                                        color="error"
+                                        variant="filled"
+                                        sx={{ fontSize: '0.7rem' }}
+                                    />
+                                )}
+                            </Box>
+                        </Box>
+                        <LinearProgress
+                            variant="determinate"
+                            value={progress}
+                            sx={{
+                                height: 6,
+                                borderRadius: 3,
+                                backgroundColor: 'grey.300',
+                                '& .MuiLinearProgress-bar': {
+                                    backgroundColor: boss.color,
+                                }
+                            }}
+                        />
+                    </Box>
+                ) : (
+                    // Mode étendu
+                    <Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <Avatar
+                                sx={{
+                                    bgcolor: boss.color,
+                                    mr: 2,
+                                    width: 48,
+                                    height: 48,
+                                    fontSize: '1.5rem'
+                                }}
+                            >
+                                {boss.name.charAt(0)}
+                            </Avatar>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography variant="h6" component="h3">
+                                    {boss.name}
+                                </Typography>
+                                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                                    <Chip
+                                        label={boss.category === 'world' ? 'World Boss' : boss.category === 'field' ? 'Field Boss' : 'Matin Radieux'}
+                                        size="small"
+                                        variant="outlined"
+                                        sx={{ color: boss.color, borderColor: boss.color }}
+                                    />
+                                    {isUrgent && (
+                                        <Chip
+                                            label="URGENT !"
+                                            size="small"
+                                            color="error"
+                                            variant="filled"
+                                        />
+                                    )}
+                                </Box>
+                            </Box>
+                        </Box>
+
+                        <Box sx={{ mb: 2 }}>
+                            <Typography variant="body2" color="text.secondary" gutterBottom>
+                                Prochain spawn :
+                            </Typography>
+                            <Typography variant="h6" color="primary">
+                                {nextSpawn.toLocaleDateString('fr-FR')} à {nextSpawn.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                            </Typography>
+                        </Box>
+
+                        <Box sx={{ mb: 2 }}>
+                            <Typography variant="body2" color="text.secondary" gutterBottom>
+                                Temps restant :
+                            </Typography>
+                            <Typography variant="h5" sx={{ color: boss.color, fontWeight: 'bold' }}>
+                                {timeUntil}
+                            </Typography>
+                        </Box>
+
+                        <LinearProgress
+                            variant="determinate"
+                            value={progress}
+                            sx={{
+                                height: 8,
+                                borderRadius: 4,
+                                backgroundColor: 'grey.300',
+                                '& .MuiLinearProgress-bar': {
+                                    backgroundColor: boss.color,
+                                }
+                            }}
+                        />
+                    </Box>
+                )}
+            </CardContent>
+        </Card>
+    )
 
     return (
         <Box>
@@ -638,6 +942,7 @@ const BossTracker: React.FC = () => {
                                         }
                                         label="Trier par urgence"
                                     />
+
                                 </Box>
                             </Grid>
 
@@ -709,6 +1014,26 @@ const BossTracker: React.FC = () => {
                                                             label="30min"
                                                         />
                                                     </Box>
+                                                    {/* <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                                                        <Button
+                                                            variant="outlined"
+                                                            size="small"
+                                                            startIcon={<TestIcon />}
+                                                            onClick={testNotification}
+                                                            sx={{
+                                                                textTransform: 'none',
+                                                                borderColor: 'primary.main',
+                                                                color: 'primary.main',
+                                                                '&:hover': {
+                                                                    borderColor: 'primary.dark',
+                                                                    backgroundColor: 'primary.main',
+                                                                    color: 'white'
+                                                                }
+                                                            }}
+                                                        >
+                                                            Tester les notifications
+                                                        </Button>
+                                                    </Box> */}
                                                 </Box>
                                             )}
                                         </>
@@ -725,157 +1050,96 @@ const BossTracker: React.FC = () => {
                 </Typography>
             </Box>
 
-            <Grid container spacing={isCompactMode ? 2 : 3}>
-                {sortedBossesData.map((boss) => {
-                    const { nextSpawn, timeUntil, progress } = getNextSpawn(boss)
+            {/* Section Boss Classiques */}
+            <Box sx={{ mb: 4 }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        p: 2,
+                        borderRadius: 2,
+                        backgroundColor: 'background.paper',
+                        '&:hover': { backgroundColor: 'action.hover' },
+                        mb: 2
+                    }}
+                    onClick={() => setClassicBossesExpanded(!classicBossesExpanded)}
+                >
+                    <Typography variant="h4" component="h2" sx={{ display: 'flex', alignItems: 'center', gap: 1, m: 0 }}>
+                        ⚔️ Boss Classiques
+                        <Chip label={sortedClassicBosses.length} size="small" color="primary" />
+                    </Typography>
+                    <IconButton size="small">
+                        {classicBossesExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </IconButton>
+                </Box>
 
-                    // Déterminer si c'est urgent (moins de 30 minutes)
-                    const isUrgent = timeUntil.match(/^(\d+)m$/) && parseInt(timeUntil.match(/^(\d+)m$/)![1]) <= 30
+                {classicBossesExpanded && (
+                    <Grid container spacing={isCompactMode ? 2 : 3}>
+                        {sortedClassicBosses.map((boss) => {
+                            const { nextSpawn, timeUntil, progress } = getNextSpawn(boss)
 
-                    return (
-                        <Grid item xs={12} sm={isCompactMode ? 12 : 6} md={isCompactMode ? 6 : 4} key={boss.id}>
-                            <Card
-                                sx={{
-                                    height: '100%',
-                                    borderLeft: `4px solid ${boss.color}`,
-                                    backgroundColor: isUrgent ? `${boss.color}10` : 'background.paper',
-                                    '&:hover': {
-                                        transform: 'translateY(-2px)',
-                                        transition: 'transform 0.2s ease-in-out',
-                                        boxShadow: 3,
-                                    }
-                                }}
-                            >
-                                <CardContent sx={{ p: isCompactMode ? 2 : 3 }}>
-                                    {isCompactMode ? (
-                                        // Mode compact
-                                        <Box>
-                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <Avatar
-                                                        sx={{
-                                                            bgcolor: boss.color,
-                                                            mr: 2,
-                                                            width: 32,
-                                                            height: 32,
-                                                            fontSize: '1rem'
-                                                        }}
-                                                    >
-                                                        {boss.name.charAt(0)}
-                                                    </Avatar>
-                                                    <Box>
-                                                        <Typography variant="subtitle1" component="h3">
-                                                            {boss.name}
-                                                        </Typography>
-                                                        <Typography variant="caption" color="text.secondary">
-                                                            {nextSpawn.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                                                        </Typography>
-                                                    </Box>
-                                                </Box>
-                                                <Box sx={{ textAlign: 'right' }}>
-                                                    <Typography variant="h6" sx={{ color: boss.color, fontWeight: 'bold' }}>
-                                                        {timeUntil}
-                                                    </Typography>
-                                                    {isUrgent && (
-                                                        <Chip
-                                                            label="Soon !"
-                                                            size="small"
-                                                            color="error"
-                                                            variant="filled"
-                                                            sx={{ fontSize: '0.7rem' }}
-                                                        />
-                                                    )}
-                                                </Box>
-                                            </Box>
-                                            <LinearProgress
-                                                variant="determinate"
-                                                value={progress}
-                                                sx={{
-                                                    height: 6,
-                                                    borderRadius: 3,
-                                                    backgroundColor: 'grey.300',
-                                                    '& .MuiLinearProgress-bar': {
-                                                        backgroundColor: boss.color,
-                                                    }
-                                                }}
-                                            />
-                                        </Box>
-                                    ) : (
-                                        // Mode étendu
-                                        <Box>
-                                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                                <Avatar
-                                                    sx={{
-                                                        bgcolor: boss.color,
-                                                        mr: 2,
-                                                        width: 48,
-                                                        height: 48,
-                                                        fontSize: '1.5rem'
-                                                    }}
-                                                >
-                                                    {boss.name.charAt(0)}
-                                                </Avatar>
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <Typography variant="h6" component="h3">
-                                                        {boss.name}
-                                                    </Typography>
-                                                    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                                                        <Chip
-                                                            label={boss.category === 'world' ? 'World Boss' : 'Field Boss'}
-                                                            size="small"
-                                                            variant="outlined"
-                                                            sx={{ color: boss.color, borderColor: boss.color }}
-                                                        />
-                                                        {isUrgent && (
-                                                            <Chip
-                                                                label="Soon !"
-                                                                size="small"
-                                                                color="error"
-                                                                variant="filled"
-                                                            />
-                                                        )}
-                                                    </Box>
-                                                </Box>
-                                            </Box>
+                            // Déterminer si c'est urgent (moins de 30 minutes)
+                            const minutesMatch = timeUntil.match(/^(\d+)m$/)
+                            const isUrgent = Boolean(minutesMatch && parseInt(minutesMatch[1]) <= 30)
 
-                                            <Box sx={{ mb: 2 }}>
-                                                <Typography variant="body2" color="text.secondary" gutterBottom>
-                                                    Prochain spawn :
-                                                </Typography>
-                                                <Typography variant="h6" color="primary">
-                                                    {nextSpawn.toLocaleDateString('fr-FR')} à {nextSpawn.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                                                </Typography>
-                                            </Box>
+                            return (
+                                <Grid item xs={12} sm={isCompactMode ? 12 : 6} md={isCompactMode ? 6 : 4} key={boss.id}>
+                                    {/* Le contenu de la card sera le même */}
+                                    {renderBossCard(boss, nextSpawn, timeUntil, progress, isUrgent)}
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                )}
+            </Box>
 
-                                            <Box sx={{ mb: 2 }}>
-                                                <Typography variant="body2" color="text.secondary" gutterBottom>
-                                                    Temps restant :
-                                                </Typography>
-                                                <Typography variant="h5" sx={{ color: boss.color, fontWeight: 'bold' }}>
-                                                    {timeUntil}
-                                                </Typography>
-                                            </Box>
+            {/* Section Boss Matin Radieux */}
+            <Box sx={{ mb: 4 }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        p: 2,
+                        borderRadius: 2,
+                        backgroundColor: 'background.paper',
+                        '&:hover': { backgroundColor: 'action.hover' },
+                        mb: 2
+                    }}
+                    onClick={() => setRadiantBossesExpanded(!radiantBossesExpanded)}
+                >
+                    <Typography variant="h4" component="h2" sx={{ display: 'flex', alignItems: 'center', gap: 1, m: 0 }}>
+                        ✨ Matin Radieux
+                        <Chip label={sortedRadiantBosses.length} size="small" color="secondary" />
+                    </Typography>
+                    <IconButton size="small">
+                        {radiantBossesExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </IconButton>
+                </Box>
 
-                                            <LinearProgress
-                                                variant="determinate"
-                                                value={progress}
-                                                sx={{
-                                                    height: 8,
-                                                    borderRadius: 4,
-                                                    backgroundColor: 'grey.300',
-                                                    '& .MuiLinearProgress-bar': {
-                                                        backgroundColor: boss.color,
-                                                    }
-                                                }}
-                                            />
-                                        </Box>
-                                    )}
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    )
-                })}
-            </Grid>
+                {radiantBossesExpanded && (
+                    <Grid container spacing={isCompactMode ? 2 : 3}>
+                        {sortedRadiantBosses.map((boss) => {
+                            const { nextSpawn, timeUntil, progress } = getNextSpawn(boss)
+
+                            // Déterminer si c'est urgent (moins de 30 minutes)
+                            const minutesMatch = timeUntil.match(/^(\d+)m$/)
+                            const isUrgent = Boolean(minutesMatch && parseInt(minutesMatch[1]) <= 30)
+
+                            return (
+                                <Grid item xs={12} sm={isCompactMode ? 12 : 6} md={isCompactMode ? 6 : 4} key={boss.id}>
+                                    {renderBossCard(boss, nextSpawn, timeUntil, progress, isUrgent)}
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                )}
+            </Box>
+
+
 
             <Box sx={{ mt: 4, p: 3, backgroundColor: 'background.paper', borderRadius: 2 }}>
                 <Typography variant="h6" gutterBottom>
