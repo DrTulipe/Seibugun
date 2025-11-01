@@ -23,17 +23,13 @@ import {
     AccordionDetails,
     IconButton,
     Button,
+    Alert,
 } from '@mui/material'
 import {
     Close as CloseIcon,
     ExpandMore as ExpandMoreIcon,
     SwapHoriz as TrocIcon,
-    Security as SecurityIcon,
-
-    AttachMoney as MoneyIcon,
-    Timeline as TimelineIcon,
-    Build as BuildIcon,
-    Navigation as NavigationIcon,
+    Link as LinkIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
 
@@ -141,7 +137,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
                 <Accordion defaultExpanded>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <TimelineIcon sx={{ mr: 1, color: 'secondary.main' }} />
                         <Typography variant="h6">🔄 Chaînes de Troc</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -181,7 +176,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <BuildIcon sx={{ mr: 1, color: 'warning.main' }} />
                         <Typography variant="h6">🔓 Déblocage des Routes</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -214,7 +208,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <SecurityIcon sx={{ mr: 1, color: 'error.main' }} />
                         <Typography variant="h6">⭐ Troc Spécial</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -284,7 +277,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <NavigationIcon sx={{ mr: 1, color: 'info.main' }} />
                         <Typography variant="h6">📅 Quêtes Quotidiennes</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -307,7 +299,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <MoneyIcon sx={{ mr: 1, color: 'success.main' }} />
                         <Typography variant="h6">💰 Stratégies de Profit</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -360,7 +351,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                 </Accordion>
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <SecurityIcon sx={{ mr: 1, color: 'error.main' }} />
                         <Typography variant="h6">💡 Conseils et Astuces</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -377,6 +367,147 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                                 </ListItem>
                             ))}
                         </List>
+                    </AccordionDetails>
+                </Accordion>
+
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography variant="h6">📚 Ressources Complémentaires</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Alert severity="info" sx={{ mb: 3 }}>
+                            <Typography variant="body2">
+                                <strong>📖 Guides Détaillés :</strong> Pour approfondir certains aspects du troc maritime,
+                                consultez ces ressources externes complètes et à jour.
+                            </Typography>
+                        </Alert>
+
+                        <Typography variant="h6" gutterBottom color="primary.main">
+                            🌐 Guides Communautaires Recommandés
+                        </Typography>
+
+                        <Box sx={{
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                            gap: 2,
+                            mb: 3
+                        }}>
+                            {/* Guide BDO Foundry */}
+                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
+                                <Typography variant="h6" gutterBottom color="primary.main">
+                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
+                                    Guide Complet BDO Foundry
+                                </Typography>
+                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
+                                    Guide détaillé couvrant tous les aspects du troc maritime, des bases aux stratégies avancées.
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    fullWidth
+                                    href="https://www.blackdesertfoundry.com/bartering-guide/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    startIcon={<LinkIcon />}
+                                >
+                                    Consulter le Guide
+                                </Button>
+                            </Paper>
+
+                            {/* Guide Grumpy Green */}
+                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
+                                <Typography variant="h6" gutterBottom color="primary.main">
+                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
+                                    Guide Navigation & Troc
+                                </Typography>
+                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
+                                    Guide spécialisé sur la navigation et les stratégies de troc maritime optimisées.
+                                </Typography>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    fullWidth
+                                    href="https://grumpygreen.cricket/bdo-barter-sailing/?cn-reloaded=1"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    startIcon={<LinkIcon />}
+                                >
+                                    Voir le Guide
+                                </Button>
+                            </Paper>
+                        </Box>
+
+                        <Typography variant="h6" gutterBottom color="secondary.main">
+                            🎥 Tutoriels Vidéo
+                        </Typography>
+
+                        <Box sx={{
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                            gap: 2
+                        }}>
+                            {/* Vidéo 1 */}
+                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
+                                <Typography variant="subtitle1" gutterBottom color="text.primary">
+                                    Guide Troc Complet (11min)
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        position: 'relative',
+                                        paddingBottom: '56.25%', // 16:9 aspect ratio
+                                        height: 0,
+                                        overflow: 'hidden',
+                                        '& iframe': {
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                        },
+                                    }}
+                                >
+                                    <iframe
+                                        src="https://www.youtube.com/embed/vZsqT6Vh4O8?start=647"
+                                        title="Guide Troc BDO"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </Box>
+                            </Paper>
+
+                            {/* Vidéo 2 */}
+                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
+                                <Typography variant="subtitle1" gutterBottom color="text.primary">
+                                    Tutoriel Navigation Maritime
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        position: 'relative',
+                                        paddingBottom: '56.25%', // 16:9 aspect ratio
+                                        height: 0,
+                                        overflow: 'hidden',
+                                        '& iframe': {
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                        },
+                                    }}
+                                >
+                                    <iframe
+                                        src="https://www.youtube.com/embed/si7-tohdkpo"
+                                        title="Guide Navigation BDO"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </Box>
+                            </Paper>
+                        </Box>
                     </AccordionDetails>
                 </Accordion>
 
