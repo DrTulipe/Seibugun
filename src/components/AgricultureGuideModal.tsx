@@ -29,17 +29,10 @@ import {
 import {
     Close as CloseIcon,
     Agriculture as AgricultureIcon,
-    Home as FenceIcon,
-    Grass as SeedIcon,
-    Build as ManagementIcon,
-    Grass as HarvestIcon,
-    Star as SpecialIcon,
     Info as InfoIcon,
     Warning as WarningIcon,
     ExpandMore as ExpandMoreIcon,
-    MonetizationOn as ProfitIcon,
     Link as LinkIcon,
-    MenuBook as BookIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
 
@@ -160,7 +153,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion defaultExpanded>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <FenceIcon sx={{ mr: 1, color: 'warning.main' }} />
                         <Typography variant="h6">🏠 Types de Clôtures et Location</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -251,7 +243,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <SeedIcon sx={{ mr: 1, color: 'success.main' }} />
                         <Typography variant="h6">🌱 Plantation et Climat</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -326,7 +317,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <ManagementIcon sx={{ mr: 1, color: 'info.main' }} />
                         <Typography variant="h6">🔧 Entretien des Cultures</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -413,7 +403,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <HarvestIcon sx={{ mr: 1, color: 'success.main' }} />
                         <Typography variant="h6">🌾 Récolte et Rendement</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -468,8 +457,7 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <SpecialIcon sx={{ mr: 1, color: 'secondary.main' }} />
-                        <Typography variant="h6">⭐ Graines Spéciales</Typography>
+                        <Typography variant="h6">⭐ Graines Spéciales - Guide Complet</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Alert severity="info" sx={{ mb: 3 }}>
@@ -676,7 +664,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <ProfitIcon sx={{ mr: 1, color: 'success.main' }} />
                         <Typography variant="h6">💰 Conseils et Optimisation</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -726,7 +713,6 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
 
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <BookIcon sx={{ mr: 1, color: 'primary.main' }} />
                         <Typography variant="h6">📚 Ressources Complémentaires</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -903,9 +889,12 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
                         • Ouvriers assignés pour gestion automatique<br />
                         • Graines magiques pour moins d'entretien<br /><br />
                         <strong>Points Clés :</strong><br />
-                        • 🏠 Max 10 jardins • 🌡️ Vérifier climat sur carte (M)<br />
-                        • 🐹 Taupes rares = familier Chouchou • 💧 Eau distillée essentielle<br />
-                        • ⏰ Patience requise • 🎯 Semi-AFK avec ouvriers
+                        • 🏠 Max 10 jardins <br />
+                        • 🌡️ Vérifier climat sur carte (M)<br />
+                        • 🐹 Taupes rares = familier Chouchou <br />
+                        • 💧 Eau distillée essentielle<br />
+                        • ⏰ Patience requise <br />
+                        • 🎯 Semi-AFK avec ouvriers
                     </Typography>
                 </Box>
             </DialogContent>
