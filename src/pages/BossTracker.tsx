@@ -617,6 +617,10 @@ const BossTracker: React.FC = () => {
                 // Nettoyer les notifications expirées (boss qui ont déjà spawn ou sont trop loin)
                 const currentNotifications = new Set<string>()
 
+                // Collecter les notifications à envoyer pour éviter les doublons de sons
+                const notificationsToSend: { boss: Boss; timeUntil: string; interval: number }[] = []
+                const soundsToPlay = new Set<number>() // Pour jouer le son une seule fois par intervalle
+
                 bossesData.forEach(boss => {
                     const { timeUntil } = getNextSpawn(boss)
                     const minutesMatch = timeUntil.match(/^(\d+)m$/)
@@ -630,14 +634,17 @@ const BossTracker: React.FC = () => {
                                 currentNotifications.add(bossKey)
 
                                 if (!notifiedBosses.has(bossKey)) {
-                                    // Toujours jouer le son si activé (même sans permissions de notification)
-                                    if (soundEnabled) {
-                                        playNotificationSound(interval.minutes)
+                                    // Debug pour vérifier les notifications des boss du Matin Radieux
+                                    if (boss.category === 'radiant') {
+                                        console.log(`Notification pour ${boss.name} (Matin Radieux) dans ${interval.minutes} minutes`)
                                     }
 
-                                    // Envoyer la notification visuelle seulement si autorisée
-                                    if (notificationsEnabled && notificationPermission === 'granted') {
-                                        sendNotification(boss, timeUntil, interval.minutes)
+                                    // Collecter cette notification
+                                    notificationsToSend.push({ boss, timeUntil, interval: interval.minutes })
+
+                                    // Marquer que ce son doit être joué (une seule fois par intervalle)
+                                    if (soundEnabled) {
+                                        soundsToPlay.add(interval.minutes)
                                     }
 
                                     setNotifiedBosses(prev => new Set(prev).add(bossKey))
@@ -658,6 +665,18 @@ const BossTracker: React.FC = () => {
                         })
                     }
                 })
+
+                // Jouer les sons une seule fois par intervalle
+                soundsToPlay.forEach(minutes => {
+                    playNotificationSound(minutes)
+                })
+
+                // Envoyer les notifications visuelles individuelles
+                if (notificationsEnabled && notificationPermission === 'granted') {
+                    notificationsToSend.forEach(({ boss, timeUntil, interval }) => {
+                        sendNotification(boss, timeUntil, interval)
+                    })
+                }
 
                 // Nettoyer les notifications expirées
                 setNotifiedBosses(prev => {

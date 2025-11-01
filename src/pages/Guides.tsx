@@ -267,7 +267,7 @@ const Guides: React.FC = () => {
                     background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
                 }}
             >
-                <Typography variant="h4" component="h2" gutterBottom color="text.primary">
+                <Typography variant="h4" component="h2" gutterBottom color="text.secondary">
                     Besoin d'aide ou de conseils ?
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 600, mx: 'auto' }}>
