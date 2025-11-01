@@ -66,7 +66,7 @@ const Members: React.FC = () => {
       id: 6,
       name: 'Yuu_Kun',
       role: 'Officier',
-      activity: 'Grind',
+      activity: 'Grind, PvP',
       class: 'Tamer',
       joinedDate: '2023-06-18',
     },

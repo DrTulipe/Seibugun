@@ -16,6 +16,7 @@ import {
     IconButton,
     Checkbox,
 } from '@mui/material'
+import { useMatomo } from '../hooks/useMatomo'
 import {
     Schedule as ScheduleIcon,
     AccessTime as TimeIcon,
@@ -173,7 +174,7 @@ const bossesData: Boss[] = [
         category: 'world',
         spawns: [
             { day: 2, time: '19:00' }, // Mercredi
-            { day: 5, time: '16:00' }, // Samedi
+            { day: 6, time: '16:00' }, // Samedi
         ]
     },
     {
@@ -390,6 +391,8 @@ interface BossTrackerPreferences {
 const STORAGE_KEY = 'seibugun-boss-tracker-preferences'
 
 const BossTracker: React.FC = () => {
+    const { trackEvent, trackPageView } = useMatomo()
+
     // Fonction pour charger les préférences depuis localStorage
     const loadPreferences = (): BossTrackerPreferences => {
         try {
@@ -448,8 +451,31 @@ const BossTracker: React.FC = () => {
     const [classicBossesExpanded, setClassicBossesExpanded] = useState(initialPrefs.showClassicBosses)
     const [radiantBossesExpanded, setRadiantBossesExpanded] = useState(initialPrefs.showRadiantBosses)
 
-    // Vérifier les permissions de notification au chargement
+    // Fonctions wrapper avec tracking Matomo
+    const handleCompactModeChange = (checked: boolean) => {
+        setIsCompactMode(checked)
+        trackEvent('Boss Tracker', 'Display Mode', checked ? 'Compact' : 'Extended')
+    }
+
+    const handleSoundToggle = (checked: boolean) => {
+        setSoundEnabled(checked)
+        trackEvent('Boss Tracker', 'Sound Settings', checked ? 'Enabled' : 'Disabled')
+    }
+
+    const handleNotificationToggle = (checked: boolean) => {
+        setNotificationsEnabled(checked)
+        trackEvent('Boss Tracker', 'Notifications', checked ? 'Enabled' : 'Disabled')
+    }
+
+    const handleSortByUrgencyToggle = (checked: boolean) => {
+        setSortByUrgency(checked)
+        trackEvent('Boss Tracker', 'Sort Mode', checked ? 'By Urgency' : 'By Name')
+    }
+
+    // Vérifier les permissions de notification au chargement et tracker la page
     useEffect(() => {
+        trackPageView('Boss Tracker')
+
         if ('Notification' in window) {
             setNotificationPermission(Notification.permission)
         }
@@ -476,6 +502,7 @@ const BossTracker: React.FC = () => {
             const permission = await Notification.requestPermission()
             setNotificationPermission(permission)
             if (permission === 'granted') {
+                trackEvent('Boss Tracker', 'Notification Permission', 'Granted')
                 setSnackbar({
                     open: true,
                     message: 'Notifications activées ! Vous recevrez des alertes 15 minutes avant les spawns.',
@@ -483,6 +510,7 @@ const BossTracker: React.FC = () => {
                 })
                 setNotificationsEnabled(true)
             } else {
+                trackEvent('Boss Tracker', 'Notification Permission', 'Denied')
                 setSnackbar({
                     open: true,
                     message: 'Permission refusée. Vous pouvez l\'activer dans les paramètres de votre navigateur.',
@@ -849,7 +877,7 @@ const BossTracker: React.FC = () => {
                         control={
                             <Switch
                                 checked={isCompactMode}
-                                onChange={(e) => setIsCompactMode(e.target.checked)}
+                                onChange={(e) => handleCompactModeChange(e.target.checked)}
                                 size="small"
                             />
                         }
@@ -861,7 +889,7 @@ const BossTracker: React.FC = () => {
                         control={
                             <Switch
                                 checked={sortByUrgency}
-                                onChange={(e) => setSortByUrgency(e.target.checked)}
+                                onChange={(e) => handleSortByUrgencyToggle(e.target.checked)}
                                 size="small"
                             />
                         }
@@ -873,7 +901,7 @@ const BossTracker: React.FC = () => {
                         control={
                             <Switch
                                 checked={soundEnabled}
-                                onChange={(e) => setSoundEnabled(e.target.checked)}
+                                onChange={(e) => handleSoundToggle(e.target.checked)}
                                 size="small"
                             />
                         }
@@ -886,7 +914,7 @@ const BossTracker: React.FC = () => {
                             control={
                                 <Switch
                                     checked={notificationsEnabled}
-                                    onChange={(e) => setNotificationsEnabled(e.target.checked)}
+                                    onChange={(e) => handleNotificationToggle(e.target.checked)}
                                     size="small"
                                 />
                             }
