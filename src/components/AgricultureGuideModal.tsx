@@ -23,8 +23,6 @@ import {
     Accordion,
     AccordionSummary,
     AccordionDetails,
-    Button,
-    Grid,
 } from '@mui/material'
 import {
     Close as CloseIcon,
@@ -32,9 +30,9 @@ import {
     Info as InfoIcon,
     Warning as WarningIcon,
     ExpandMore as ExpandMoreIcon,
-    Link as LinkIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
+import GuideResourcesSection from './GuideResourcesSection'
 
 interface AgricultureGuideModalProps {
     open: boolean
@@ -92,6 +90,33 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
         'Installez épouvantails et canaux d\'irrigation pour réduire l\'entretien',
         'Les taupes apparaissent parfois lors de la récolte - elles donnent de bons objets !',
         'Utilisez le Sachet de graines de la Vieille Lune de Klau (Qualifié 1+) pour stocker 50 graines',
+    ]
+
+    // Ressources pour la section complémentaire
+    const agricultureResources = [
+        {
+            title: 'Guide Initial Officiel Black Desert',
+            description: 'Guide présent dans le guide de l\'aventurier officiel, couvrant les bases de l\'agriculture.',
+            url: 'https://www.naeu.playblackdesert.com/fr-FR/Wiki?wikiNo=33',
+            buttonText: 'Consulter le Guide'
+        },
+        {
+            title: 'Guide Optimisation BDO Foundry',
+            description: 'Guide complet sur l\'optimisation des rendements et les stratégies avancées d\'agriculture.',
+            url: 'https://www.blackdesertfoundry.com/farming-guide/',
+            buttonText: 'Voir le Guide'
+        }
+    ]
+
+    const agricultureVideos = [
+        {
+            title: 'BLACK DESERT POUR LES NULS | AGRICULTURE (14min)',
+            videoId: 'vCALa26kRlE'
+        },
+        {
+            title: 'Le Métier de l\'AGRICULTURE de A à Z ! (18min)',
+            videoId: 'pz6MWqbSNt8'
+        }
     ]
 
     return (
@@ -711,165 +736,12 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
                     </AccordionDetails>
                 </Accordion>
 
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="h6">📚 Ressources Complémentaires</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Alert severity="info" sx={{ mb: 3 }}>
-                            <Typography variant="body2">
-                                <strong>📖 Guides Détaillés :</strong> Pour approfondir certains aspects de l'agriculture,
-                                consultez ces ressources externes complètes et à jour.
-                            </Typography>
-                        </Alert>
+                <GuideResourcesSection
+                    topic="de l'agriculture"
+                    resources={agricultureResources}
+                    videos={agricultureVideos}
+                />
 
-                        <Typography variant="h6" gutterBottom color="primary.main">
-                            🌐 Guides Communautaires Recommandés
-                        </Typography>
-
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
-                                    <Typography variant="h6" color="primary.main" gutterBottom>
-                                        <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                        Guide Initial Officiel Black Desert
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ mb: 2 }} color="text.primary">
-                                        Guide présent dans le guide de l'aventurier officiel, couvrant les bases de l'agriculture.
-                                    </Typography>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        size="small"
-                                        fullWidth
-                                        href="https://www.naeu.playblackdesert.com/fr-FR/Wiki?wikiNo=33"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<LinkIcon />}
-                                    >
-                                        Consulter le Guide
-                                    </Button>
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Paper sx={{ p: 2, border: '1px solid #ff9800' }} variant="outlined">
-                                    <Typography variant="h6" color="warning.main" gutterBottom>
-                                        <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                        Guide Black desert Foundry
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ mb: 2 }} color="text.primary">
-                                        Guide en anglais très complet couvrant tous les aspects de l'agriculture.
-                                    </Typography>
-                                    <Button
-                                        variant="contained"
-                                        color="warning"
-                                        size="small"
-                                        fullWidth
-                                        href="https://www.blackdesertfoundry.com/farming/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<LinkIcon />}
-                                    >
-                                        Consulter le Guide
-                                    </Button>
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12} md={6}>
-                                <Paper sx={{ p: 2, border: '1px solid #4caf50' }} variant="outlined">
-                                    <Typography variant="h6" color="success.main" gutterBottom>
-                                        <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                        BDO Farming Spreadsheet
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ mb: 2 }} color="text.primary">
-                                        Optimisation des cultures
-                                    </Typography>
-                                    <Button
-                                        variant="contained"
-                                        color="success"
-                                        size="small"
-                                        fullWidth
-                                        href="https://grumpygreen.cricket/farming-spreadsheet/"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        startIcon={<LinkIcon />}
-                                    >
-                                        Consulter la Spreadsheet
-                                    </Button>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-
-                        <Typography variant="h6" sx={{ mt: 3, mb: 2 }} color="info.main">
-                            📺 Quelques Tutos Vidéo
-                        </Typography>
-
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} lg={6}>
-                                <Paper sx={{ p: 2, border: '1px solid #f44336' }} variant="outlined">
-                                    <Typography variant="h6" color="error.main" gutterBottom sx={{ mb: 2 }}>
-                                        🎥 BLACK DESERT POUR LES NULS | AGRICULTURE
-                                    </Typography>
-                                    <Box sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        borderRadius: 1,
-                                        mb: 1
-                                    }}>
-                                        <iframe
-                                            src="https://www.youtube.com/embed/vCALa26kRlE"
-                                            style={{
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                width: '100%',
-                                                height: '100%',
-                                                border: 'none'
-                                            }}
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                            title="Guide Agriculture BDO - Les Bases"
-                                        />
-                                    </Box>
-                                </Paper>
-                            </Grid>
-
-                            <Grid item xs={12} lg={6}>
-                                <Paper sx={{ p: 2, border: '1px solid #ff5722' }} variant="outlined">
-                                    <Typography variant="h6" color="deepOrange.main" gutterBottom sx={{ mb: 2 }}>
-                                        🎥 Le Métier de l'AGRICULTURE de A à Z !
-                                    </Typography>
-                                    <Box sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        borderRadius: 1,
-                                        mb: 1
-                                    }}>
-                                        <iframe
-                                            src="https://www.youtube.com/embed/pz6MWqbSNt8"
-                                            style={{
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                width: '100%',
-                                                height: '100%',
-                                                border: 'none'
-                                            }}
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                            title="Le Métier de l'AGRICULTURE de A à Z !"
-                                        />
-                                    </Box>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </AccordionDetails>
-                </Accordion>
 
                 <Box sx={{
                     mt: 3,

@@ -23,15 +23,14 @@ import {
     AccordionDetails,
     IconButton,
     Alert,
-    Button,
 } from '@mui/material'
 import {
     Close as CloseIcon,
     ExpandMore as ExpandMoreIcon,
-    Science as AlchemyIcon,
-    Link as LinkIcon
+    Science as AlchemyIcon
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
+import GuideResourcesSection from './GuideResourcesSection'
 
 interface AlchemyGuideModalProps {
     open: boolean
@@ -138,6 +137,33 @@ const AlchemyGuideModal: React.FC<AlchemyGuideModalProps> = ({ open, onClose }) 
         'Sang de Clown (très rentable)',
         'Potions de MP (demande constante)',
         'Sockets de Cristaux (artisanat avancé)',
+    ]
+
+    // Ressources pour la section complémentaire
+    const alchemyResources = [
+        {
+            title: 'Guide Complet Alchimie BDO Foundry',
+            description: 'Guide détaillé couvrant tous les aspects de l\'alchimie, des bases aux stratégies avancées.',
+            url: 'https://www.blackdesertfoundry.com/alchemy-guide/',
+            buttonText: 'Consulter le Guide'
+        },
+        {
+            title: 'Wiki Officiel BDO',
+            description: 'Guide officiel complet de l\'alchimie avec toutes les recettes et informations détaillées.',
+            url: 'https://www.naeu.playblackdesert.com/fr-FR/Wiki?wikiNo=71',
+            buttonText: 'Voir le Wiki'
+        }
+    ]
+
+    const alchemyVideos = [
+        {
+            title: 'Guide Alchimie Complet (23min)',
+            videoId: 'MoFM29mmMnM'
+        },
+        {
+            title: 'Tutoriel Alchimie Avancée (15min)',
+            videoId: '08JrSuL6pO4'
+        }
     ]
 
     return (
@@ -573,146 +599,11 @@ const AlchemyGuideModal: React.FC<AlchemyGuideModalProps> = ({ open, onClose }) 
                     </AccordionDetails>
                 </Accordion>
 
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="h6">📚 Ressources Complémentaires</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Alert severity="info" sx={{ mb: 3 }}>
-                            <Typography variant="body2">
-                                <strong>📖 Guides Détaillés :</strong> Pour approfondir certains aspects de l'alchimie,
-                                consultez ces ressources externes complètes et à jour.
-                            </Typography>
-                        </Alert>
-
-                        <Typography variant="h6" gutterBottom color="primary.main">
-                            🌐 Guides Communautaires Recommandés
-                        </Typography>
-
-                        <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-                            gap: 2,
-                            mb: 3
-                        }}>
-                            {/* Guide BDO Foundry */}
-                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
-                                <Typography variant="h6" gutterBottom color="primary.main">
-                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                    Guide Complet Alchimie BDO Foundry
-                                </Typography>
-                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
-                                    Guide détaillé couvrant tous les aspects de l'alchimie, des bases aux stratégies avancées.
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    fullWidth
-                                    href="https://www.blackdesertfoundry.com/alchemy-guide/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    startIcon={<LinkIcon />}
-                                >
-                                    Consulter le Guide
-                                </Button>
-                            </Paper>
-
-                            {/* Guide Wiki Officiel */}
-                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
-                                <Typography variant="h6" gutterBottom color="primary.main">
-                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                    Wiki Officiel BDO
-                                </Typography>
-                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
-                                    Guide officiel complet de l'alchimie avec toutes les recettes et informations détaillées.
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    fullWidth
-                                    href="https://www.naeu.playblackdesert.com/fr-FR/Wiki?wikiNo=71"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    startIcon={<LinkIcon />}
-                                >
-                                    Voir le Wiki
-                                </Button>
-                            </Paper>
-                        </Box>
-
-                        <Typography variant="h6" gutterBottom color="secondary.main">
-                            🎥 Tutoriels Vidéo
-                        </Typography>
-
-                        <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-                            gap: 2
-                        }}>
-                            {/* Vidéo 1 */}
-                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
-                                <Typography variant="subtitle1" gutterBottom color="text.primary">
-                                    Guide Alchimie Complet (23min)
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        '& iframe': {
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '100%',
-                                        },
-                                    }}
-                                >
-                                    <iframe
-                                        src="https://www.youtube.com/embed/MoFM29mmMnM"
-                                        title="Guide Alchimie BDO"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </Box>
-                            </Paper>
-
-                            {/* Vidéo 2 */}
-                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
-                                <Typography variant="subtitle1" gutterBottom color="text.primary">
-                                    Tutoriel Alchimie Avancée (15min)
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        '& iframe': {
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '100%',
-                                        },
-                                    }}
-                                >
-                                    <iframe
-                                        src="https://www.youtube.com/embed/08JrSuL6pO4"
-                                        title="Tutoriel Alchimie Avancée BDO"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </Box>
-                            </Paper>
-                        </Box>
-                    </AccordionDetails>
-                </Accordion>
+                <GuideResourcesSection
+                    topic="de l'alchimie"
+                    resources={alchemyResources}
+                    videos={alchemyVideos}
+                />
 
                 <Box sx={{
                     mt: 3,

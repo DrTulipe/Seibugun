@@ -13,7 +13,7 @@ interface GuideModalActionsProps {
 
 const GuideModalActions: React.FC<GuideModalActionsProps> = ({
     onClose,
-    discordText = "💬 Questions sur Discord",
+    discordText = "💬 Poser une question sur Discord",
     guideName = "Guide"
 }) => {
     const { trackEvent } = useMatomo()

@@ -23,15 +23,14 @@ import {
     AccordionDetails,
     IconButton,
     Button,
-    Alert,
 } from '@mui/material'
 import {
     Close as CloseIcon,
     ExpandMore as ExpandMoreIcon,
     SwapHoriz as TrocIcon,
-    Link as LinkIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
+import GuideResourcesSection from './GuideResourcesSection'
 
 interface TrocGuideModalProps {
     open: boolean
@@ -86,6 +85,34 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
         'Stockage : Port Epheria, Velia, Iliya (Préférence pour Iliya car assez centrale), vous pouvez investir dans les habitations d\'Iliya en dépôt et utiliser des loyalties pour acheter des extensions de dépôt de Balenos',
         'Gardez 3-4 de chaque Level 5 pour les pièces de corbeau, vendez le reste',
         'Vous pouvez mettre des objets de trocs dans votre inventaire pour économiser du poids sur le navire, mais il faudra aller dans un port pour les stocker dans la cale avant échange',
+    ]
+
+    // Ressources pour la section complémentaire
+    const trocResources = [
+        {
+            title: 'Guide Complet BDO Foundry',
+            description: 'Guide détaillé couvrant tous les aspects du troc maritime, des bases aux stratégies avancées.',
+            url: 'https://www.blackdesertfoundry.com/bartering-guide/',
+            buttonText: 'Consulter le Guide'
+        },
+        {
+            title: 'Guide Navigation & Troc',
+            description: 'Guide spécialisé sur la navigation et les stratégies de troc maritime optimisées.',
+            url: 'https://grumpygreen.cricket/bdo-barter-sailing/?cn-reloaded=1',
+            buttonText: 'Voir le Guide'
+        }
+    ]
+
+    const trocVideos = [
+        {
+            title: 'Guide Troc Complet (11min)',
+            videoId: 'vZsqT6Vh4O8',
+            startTime: 647
+        },
+        {
+            title: 'Gourou en troc en 30 minutes par jour (6min)',
+            videoId: 'si7-tohdkpo'
+        }
     ]
 
     return (
@@ -370,146 +397,11 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                     </AccordionDetails>
                 </Accordion>
 
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                        <Typography variant="h6">📚 Ressources Complémentaires</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Alert severity="info" sx={{ mb: 3 }}>
-                            <Typography variant="body2">
-                                <strong>📖 Guides Détaillés :</strong> Pour approfondir certains aspects du troc maritime,
-                                consultez ces ressources externes complètes et à jour.
-                            </Typography>
-                        </Alert>
-
-                        <Typography variant="h6" gutterBottom color="primary.main">
-                            🌐 Guides Communautaires Recommandés
-                        </Typography>
-
-                        <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-                            gap: 2,
-                            mb: 3
-                        }}>
-                            {/* Guide BDO Foundry */}
-                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
-                                <Typography variant="h6" gutterBottom color="primary.main">
-                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                    Guide Complet BDO Foundry
-                                </Typography>
-                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
-                                    Guide détaillé couvrant tous les aspects du troc maritime, des bases aux stratégies avancées.
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    fullWidth
-                                    href="https://www.blackdesertfoundry.com/bartering-guide/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    startIcon={<LinkIcon />}
-                                >
-                                    Consulter le Guide
-                                </Button>
-                            </Paper>
-
-                            {/* Guide Grumpy Green */}
-                            <Paper sx={{ p: 2, border: '1px solid #2196f3' }} variant="outlined">
-                                <Typography variant="h6" gutterBottom color="primary.main">
-                                    <LinkIcon sx={{ mr: 1, fontSize: 20 }} />
-                                    Guide Navigation & Troc
-                                </Typography>
-                                <Typography variant="body2" color="text.primary" sx={{ mb: 2 }}>
-                                    Guide spécialisé sur la navigation et les stratégies de troc maritime optimisées.
-                                </Typography>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    fullWidth
-                                    href="https://grumpygreen.cricket/bdo-barter-sailing/?cn-reloaded=1"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    startIcon={<LinkIcon />}
-                                >
-                                    Voir le Guide
-                                </Button>
-                            </Paper>
-                        </Box>
-
-                        <Typography variant="h6" gutterBottom color="secondary.main">
-                            🎥 Tutoriels Vidéo
-                        </Typography>
-
-                        <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-                            gap: 2
-                        }}>
-                            {/* Vidéo 1 */}
-                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
-                                <Typography variant="subtitle1" gutterBottom color="text.primary">
-                                    Guide Troc Complet (11min)
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        '& iframe': {
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '100%',
-                                        },
-                                    }}
-                                >
-                                    <iframe
-                                        src="https://www.youtube.com/embed/vZsqT6Vh4O8?start=647"
-                                        title="Guide Troc BDO"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </Box>
-                            </Paper>
-
-                            {/* Vidéo 2 */}
-                            <Paper sx={{ p: 2, border: '1px solid', borderColor: 'grey.300' }}>
-                                <Typography variant="subtitle1" gutterBottom color="text.primary">
-                                    Tutoriel Navigation Maritime
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        position: 'relative',
-                                        paddingBottom: '56.25%', // 16:9 aspect ratio
-                                        height: 0,
-                                        overflow: 'hidden',
-                                        '& iframe': {
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '100%',
-                                        },
-                                    }}
-                                >
-                                    <iframe
-                                        src="https://www.youtube.com/embed/si7-tohdkpo"
-                                        title="Guide Navigation BDO"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </Box>
-                            </Paper>
-                        </Box>
-                    </AccordionDetails>
-                </Accordion>
+                <GuideResourcesSection
+                    topic="du troc maritime"
+                    resources={trocResources}
+                    videos={trocVideos}
+                />
 
                 <Box sx={{
                     mt: 3,
@@ -535,7 +427,6 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
 
             <GuideModalActions
                 onClose={onClose}
-                discordText="💬 Poser une question sur Discord"
             />
         </Dialog>
     )
