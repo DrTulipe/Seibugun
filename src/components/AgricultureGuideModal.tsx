@@ -465,7 +465,7 @@ const AgricultureGuideModal: React.FC<AgricultureGuideModalProps> = ({ open, onC
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <SpecialIcon sx={{ mr: 1, color: 'secondary.main' }} />
-                        <Typography variant="h6">⭐ Graines Spéciales - Guide Complet</Typography>
+                        <Typography variant="h6">⭐ Graines Spéciales</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Alert severity="info" sx={{ mb: 3 }}>
