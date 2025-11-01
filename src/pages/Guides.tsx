@@ -19,16 +19,28 @@ import {
     Star as StarIcon,
 } from '@mui/icons-material'
 import TrocGuideModal from '../components/TrocGuideModal'
+import AlchemyGuideModal from '../components/AlchemyGuideModal'
 
 const Guides: React.FC = () => {
     const [trocModalOpen, setTrocModalOpen] = useState(false)
+    const [alchemyModalOpen, setAlchemyModalOpen] = useState(false)
+
+    // Liste des guides disponibles avec modal
+    const availableGuides = ['Troc', 'Alchimie']
+
+    const isGuideAvailable = (guideName: string) => {
+        return availableGuides.includes(guideName)
+    }
 
     const handleGuideClick = (guideName: string) => {
+        if (!isGuideAvailable(guideName)) {
+            return // Ne rien faire si le guide n'est pas disponible
+        }
+
         if (guideName === 'Troc') {
             setTrocModalOpen(true)
-        } else {
-            // Pour les autres guides, redirection vers Discord
-            window.open('https://discord.gg/xejvGDwczy', '_blank')
+        } else if (guideName === 'Alchimie') {
+            setAlchemyModalOpen(true)
         }
     }
 
@@ -58,14 +70,13 @@ const Guides: React.FC = () => {
             color: 'secondary.main',
         },
         {
-            title: 'Boss de Guilde',
-            description: 'Stratégies et coordination pour les boss',
+            title: 'Activités de Guilde',
+            description: 'Tout sur la vie de guilde et ses activités',
             icon: <GroupIcon sx={{ fontSize: 48, color: 'warning.main' }} />,
             guides: [
-                { name: 'Préparation pré-boss', icon: '🛡️' },
-                { name: 'Stratégies par boss', icon: '👹' },
-                { name: 'Coordination de guilde', icon: '🤝' },
-                { name: 'Répartition du butin', icon: '💎' },
+                { name: 'Quêtes de Guilde', icon: '📜' },
+                { name: 'Salaires', icon: '💰' },
+                { name: 'Boss de Guilde', icon: '🐉' },
             ],
             color: 'warning.main',
         },
@@ -138,6 +149,25 @@ const Guides: React.FC = () => {
                 </Typography>
             </Paper>
 
+            {/* Légende des statuts */}
+            <Box sx={{ mb: 3, textAlign: 'center' }}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" alignItems="center">
+                    <Chip
+                        label="✅ Guide interactif disponible"
+                        color="success"
+                        variant="filled"
+                        size="small"
+                    />
+                    <Chip
+                        label="⏳ Bientôt disponible (Discord)"
+                        color="default"
+                        variant="outlined"
+                        size="small"
+                        sx={{ opacity: 0.6 }}
+                    />
+                </Stack>
+            </Box>
+
             {/* Guides Grid */}
             <Grid container spacing={3} sx={{ mb: 4 }}>
                 {guideCategories.map((category, index) => (
@@ -169,31 +199,38 @@ const Guides: React.FC = () => {
                                     {category.description}
                                 </Typography>
                                 <Stack spacing={1} sx={{ mb: 3 }}>
-                                    {category.guides.map((guide, guideIndex) => (
-                                        <Chip
-                                            key={guideIndex}
-                                            label={
-                                                typeof guide === 'string'
-                                                    ? guide
-                                                    : `${guide.icon} ${guide.name}`
-                                            }
-                                            size="small"
-                                            variant="outlined"
-                                            clickable
-                                            onClick={() => handleGuideClick(
-                                                typeof guide === 'string' ? guide : guide.name
-                                            )}
-                                            sx={{
-                                                borderColor: category.color,
-                                                color: category.color,
-                                                cursor: 'pointer',
-                                                '&:hover': {
-                                                    backgroundColor: category.color,
-                                                    color: 'white',
-                                                },
-                                            }}
-                                        />
-                                    ))}
+                                    {category.guides.map((guide, guideIndex) => {
+                                        const guideName = typeof guide === 'string' ? guide : guide.name
+                                        const isAvailable = isGuideAvailable(guideName)
+
+                                        return (
+                                            <Chip
+                                                key={guideIndex}
+                                                label={
+                                                    typeof guide === 'string'
+                                                        ? guide + (isAvailable ? '' : ' (Bientôt disponible)')
+                                                        : `${guide.icon} ${guide.name}${isAvailable ? '' : ' (Bientôt disponible)'}`
+                                                }
+                                                size="small"
+                                                variant="outlined"
+                                                clickable={isAvailable}
+                                                onClick={() => handleGuideClick(guideName)}
+                                                sx={{
+                                                    borderColor: isAvailable ? category.color : 'grey.400',
+                                                    color: isAvailable ? category.color : 'grey.500',
+                                                    cursor: isAvailable ? 'pointer' : 'not-allowed',
+                                                    opacity: isAvailable ? 1 : 0.6,
+                                                    '&:hover': isAvailable ? {
+                                                        backgroundColor: category.color,
+                                                        color: 'white',
+                                                    } : {},
+                                                    '&.MuiChip-clickable:hover': !isAvailable ? {
+                                                        backgroundColor: 'transparent',
+                                                    } : {}
+                                                }}
+                                            />
+                                        )
+                                    })}
                                 </Stack>
                                 <Button
                                     variant="contained"
@@ -255,6 +292,12 @@ const Guides: React.FC = () => {
             <TrocGuideModal
                 open={trocModalOpen}
                 onClose={() => setTrocModalOpen(false)}
+            />
+
+            {/* Modal du Guide d'Alchimie */}
+            <AlchemyGuideModal
+                open={alchemyModalOpen}
+                onClose={() => setAlchemyModalOpen(false)}
             />
         </Box>
     )

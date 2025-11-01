@@ -3,8 +3,6 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
-    Button,
     Typography,
     Box,
     Divider,
@@ -36,6 +34,7 @@ import {
     Build as BuildIcon,
     Navigation as NavigationIcon,
 } from '@mui/icons-material'
+import GuideModalActions from './GuideModalActions'
 
 interface TrocGuideModalProps {
     open: boolean
@@ -44,47 +43,61 @@ interface TrocGuideModalProps {
 
 const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
     const prerequisSection = [
-        { icon: '👤', text: 'Niveau 50+ sur votre personnage' },
-        { icon: '⛵', text: 'Maîtrise Qualifié 1 en Navigation' },
-        { icon: '🚢', text: 'Bateau Epheria Sailboat' },
-        { icon: '💰', text: '1 milliard+ de silver d\'investissement' },
-        { icon: '📅', text: 'Une semaine de quêtes quotidiennes' },
+        { icon: '👤', text: 'Personnage niveau 50+ requis' },
+        { icon: '⛵', text: 'Qualifié 1 en Navigation (Sailing) obligatoire' },
+        { icon: '🚢', text: 'Epheria Sailboat (Central Market ou craft)' },
+        { icon: '💰', text: '1+ milliard silver d\'investissement initial' },
+        { icon: '�', text: 'Questline [The Great Expedition] First Sailboat complétée' },
+        { icon: '📅', text: '7 jours de Ravinia\'s Ship Upgrade Log quêtes' },
     ]
 
     const chainLevels = [
-        { niveau: 'Terre', poids: '-', valeur: '-', description: 'Marchandises de base' },
-        { niveau: 'Niveau 1', poids: '100 LT', valeur: '-', description: '10x Verdant Stones' },
-        { niveau: 'Niveau 2', poids: '800 LT', valeur: '-', description: 'Matériaux navire' },
-        { niveau: 'Niveau 3', poids: '900 LT', valeur: '1M', description: 'Matériaux navire' },
-        { niveau: 'Niveau 4', poids: '1000 LT', valeur: '2M', description: 'Matériaux Carrack' },
-        { niveau: 'Niveau 5', poids: '1000 LT', valeur: '7.5-15M', description: 'Crow Coins (profit max)' },
+        { niveau: 'Marchandises Terrestres', poids: 'Variable', valeur: '-', description: 'Vinegar, Beer, Fleece, Powder of Time, etc.' },
+        { niveau: 'Niveau 1', poids: '100 LT', valeur: 'Non vendable', description: '10x Échanges → Verdant Stones' },
+        { niveau: 'Niveau 2', poids: '800 LT', valeur: 'Non vendable', description: '10x Échanges → Matériaux navire +5' },
+        { niveau: 'Niveau 3', poids: '900 LT', valeur: '1 million', description: '10x Échanges → Matériaux navire +6-10' },
+        { niveau: 'Niveau 4', poids: '1000 LT', valeur: '2 millions', description: '10x Échanges → Matériaux Carrack' },
+        { niveau: 'Niveau 5 (Intérieur)', poids: '1000 LT', valeur: '7.5 millions', description: '6x Échanges → Matériaux Brillants Carrack' },
+        { niveau: 'Niveau 5 (Grand Océan)', poids: '1000 LT', valeur: '15 millions', description: '4x Échanges → Max profit Crow Coins' },
     ]
 
     const unlockRoutes = [
-        { trocs: '0', route: '1ère Route (Old Moon Guild Carrack)' },
-        { trocs: '10', route: '2ème Route ([Niveau 2] Matériaux)' },
-        { trocs: '30', route: '3ème Route ([Niveau 3] Matériaux)' },
-        { trocs: '70', route: '4ème Route ([Niveau 4] Matériaux)' },
-        { trocs: '140', route: 'Troc Spécial ⭐' },
-        { trocs: '1000', route: 'Brilliant Materials' },
+        { trocs: '0', route: '1ère Route Troc + Old Moon Guild Carrack' },
+        { trocs: '10', route: '2ème Route + [Niveau 2] Matériaux Barter' },
+        { trocs: '30', route: '3ème Route + [Niveau 3] Matériaux Barter' },
+        { trocs: '70', route: '4ème Route + [Niveau 4] Matériaux Barter' },
+        { trocs: '140', route: 'Troc Spécial débloqué ⭐' },
+        { trocs: '150', route: '5ème Route' },
+        { trocs: '310', route: '6ème Route' },
+        { trocs: '1000', route: 'Brilliant Materials (Ship Material Refresh)' },
+        { trocs: '1500', route: 'Brilliant Materials (Trade Item Refresh)' },
+        { trocs: '5110', route: '10ème Route + [Niveau 5] Matériaux Barter' },
         { trocs: '10000', route: 'Échange [Niveau 3] pour Crow Coins' },
     ]
 
     const dailyQuests = [
-        { nom: 'Ravinia\'s Ship Upgrade Log I & IV', recompense: 'Verdant Black Stone x50 + matériaux' },
-        { nom: 'Ravinia\'s Ship Upgrade Log II & V', recompense: 'Sailing EXP (60,000)' },
-        { nom: 'Ravinia\'s Ship Upgrade Log III & VI', recompense: 'Chowder x10, Potions' },
+        { nom: 'Ravinia\'s Ship Upgrade Log I', recompense: 'Verdant Black Stone x50, Graphite/Timber/Adhesive for Upgrade x25' },
+        { nom: 'Ravinia\'s Ship Upgrade Log II', recompense: 'Sailing Skill EXP (60,000)' },
+        { nom: 'Ravinia\'s Ship Upgrade Log III', recompense: 'Chowder x10, Elixir of Regeneration x1' },
+        { nom: 'Ravinia\'s Ship Upgrade Log IV', recompense: 'Verdant Black Stone x50, Graphite/Timber/Adhesive for Upgrade x25' },
+        { nom: 'Ravinia\'s Ship Upgrade Log V', recompense: 'Sailing Skill EXP (60,000)' },
+        { nom: 'Ravinia\'s Ship Upgrade Log VI', recompense: 'Chowder x10, Elixir of Regeneration x1' },
         { nom: 'Ravinia\'s Ship Upgrade Log VII', recompense: 'Crow Coin x1000' },
-        { nom: '[Daily] Ravikel\'s Test', recompense: 'Deep Sea Memory Filled Glue x8' },
+        { nom: '[Daily] Ravikel\'s Test (Oquilla\'s Eye)', recompense: 'Deep Sea Memory Filled Glue x8 (troc 5x)' },
+        { nom: '[Daily] Precious Coral Piece', recompense: 'Seaweed Stalk x4 (donner Coral Pieces x10)' },
     ]
 
     const tipsList = [
-        'Cochez "Continuously use Breezy Sails" (ne marche pas si surpoids)',
-        'Clic gauche sur l\'icône navire : téléportation au gouvernail (40m)',
-        'Arrêt instantané : [T] → [S] → [R]',
-        'Explorez les îles pour récupérer stamina marins + supply boxes',
-        'Gardez divers niveaux d\'items à Iliya ET Epheria',
-        'Utilisez un alt avec gear de poids pour plus de capacité',
+        'Cochez "Continuously use Breezy Sails" (ne marche pas si surpoids ou <50% HP)',
+        'LMB sur icône navire : téléportation gouvernail (40m max)',
+        'RMB sur icône navire : rappeler le navire à vous (40m max)',
+        'Arrêt instantané bateau : [T] → [S] → [R]',
+        'Explorez îles : stamina marins + barter supply boxes (évitez <60% durabilité)',
+        'Utilisez Innocent Goblin Sailors (vitesse max, niveau 8 = 3.0 speed min)',
+        'Stockage : Port Epheria (Land+L2+L3+L4), Iliya (L1-L5), Ancado (L5)',
+        'Transport items Niveau 5 entre stockages (4h, 5 items max)',
+        'Gardez 3-4 de chaque Level 5 pour coin trades, vendez le reste',
+        'Utilisez alt tagué avec gear poids pour overstack items',
     ]
 
     return (
@@ -272,11 +285,70 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                         <Typography variant="h6" gutterBottom color="success.main" sx={{ mt: 2 }}>
                             Gestion des Crow Coins
                         </Typography>
-                        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
                             <Chip label="Manos Box: 2,500 → 200M+ silver" color="success" variant="outlined" />
-                            <Chip label="Weekly Caphras Bundle" color="info" variant="outlined" />
+                            <Chip label="Weekly Caphras Bundle (Lema)" color="info" variant="outlined" />
                             <Chip label="Khan's Heart: 80,000 coins" color="warning" variant="outlined" />
                         </Box>
+
+                        <Typography variant="h6" gutterBottom color="warning.main">
+                            Hakoven Island Coin Runs
+                        </Typography>
+                        <Typography variant="body2" color="text.primary">
+                            • Meilleurs taux Crow Coins (250+ par échange minimum)<br />
+                            • Transportez Level 5 → Ancado Inner Harbor → Hakoven<br />
+                            • Alt avec Skilled Sailing + Epheria Frigate recommandé<br />
+                            • Suicide cliff pour retour rapide ou Traveller's Map
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
+
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <BuildIcon sx={{ mr: 1, color: 'warning.main' }} />
+                        <Typography variant="h6">🚢 Matériaux Epheria Caravel</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography variant="body2" sx={{ mb: 2 }} color="text.primary">
+                            <strong>Coût total :</strong> ~400M silver + matériaux de troc + 220 Verdant Black Stones
+                        </Typography>
+
+                        <Typography variant="h6" gutterBottom color="primary.main">
+                            Matériaux de Base Requis
+                        </Typography>
+                        <List dense>
+                            <ListItem>
+                                <ListItemText primary="Ship Upgrade Permit: Epheria Caravel (400M silver)" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="+10 Epheria: Old Prow/Plating/Cannon/Sails" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Graphite Ingot for Upgrade x100" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Timber for Upgrade x100" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Adhesive for Upgrade x100" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Island Tree Coated Plywood x100 (via troc)" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Rock Salt Ingot x100 (via troc)" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Deep Sea Memory Filled Glue x4" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemText primary="Seaweed Stalk x4 (+ Sea Monster's Ooze x150)" />
+                            </ListItem>
+                        </List>
+
+                        <Typography variant="body2" color="text.primary" sx={{ mt: 1, fontStyle: 'italic' }}>
+                            50% des matériaux obtenus via Ravinia's Ship Upgrade Log (7 quêtes)
+                        </Typography>
                     </AccordionDetails>
                 </Accordion>
 
@@ -311,33 +383,25 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                     borderColor: 'success.main'
                 }}>
                     <Typography variant="h6" gutterBottom color="success.main">
-                        📊 Rentabilité Estimée
+                        📊 Résumé Progression Troc
                     </Typography>
                     <Typography variant="body2" color="text.primary">
-                        <strong>Avec Caravel +10 Green Gear :</strong><br />
-                        • Horaire : 50-100M silver/heure<br />
-                        • Investissement initial : ~1.5 milliard silver<br />
-                        • ROI : 2-3 mois avec jeu régulier<br />
-                        • Type : Semi-AFK, bon pour multitâche
+                        <strong>Étapes Essentielles :</strong><br />
+                        1. Questline [The Great Expedition] + Skilled 1 Sailing<br />
+                        2. Ravinia's Ship Upgrade Log (7 jours) + dailies Oquilla's Eye<br />
+                        3. Accumulation 70+ trocs pour débloquer routes principales<br />
+                        4. Upgrade Epheria Caravel + Green Gear +10 minimum<br />
+                        5. 1000+ trocs pour Brilliant Materials (Carrack path)<br /><br />
+                        <strong>Points Clés :</strong> Semi-AFK, 1B+ silver initial, excellent ROI long terme<br />
+                        <strong>Référence :</strong> Spreadsheet BDFoundry + BDOCodex pour Special Barter
                     </Typography>
                 </Box>
             </DialogContent>
 
-            <DialogActions sx={{ p: 3 }}>
-                <Button
-                    variant="outlined"
-                    href="https://discord.gg/xejvGDwczy"
-                    target="_blank"
-                    color='info'
-                    rel="noopener noreferrer"
-                    sx={{ mr: 'auto' }}
-                >
-                    💬 Poser une question sur Discord
-                </Button>
-                <Button variant="contained" onClick={onClose}>
-                    Fermer
-                </Button>
-            </DialogActions>
+            <GuideModalActions
+                onClose={onClose}
+                discordText="💬 Poser une question sur Discord"
+            />
         </Dialog>
     )
 }
