@@ -28,7 +28,6 @@ import {
     Settings as SettingsIcon,
     ExpandMore as ExpandMoreIcon,
     ExpandLess as ExpandLessIcon,
-    PlayArrow as TestIcon
 } from '@mui/icons-material'
 
 // Types pour les données des boss
@@ -557,59 +556,25 @@ const BossTracker: React.FC = () => {
 
     // Fonction pour envoyer une notification
     const sendNotification = (boss: Boss, timeUntil: string, interval: number) => {
-        if (notificationsEnabled && notificationPermission === 'granted') {
-            const notification = new Notification(`${boss.name} spawn dans ${interval} minutes !`, {
-                body: `Le boss ${boss.name} apparaîtra dans ${timeUntil}`,
-                icon: '/seibugun_ico.jpg',
-                tag: `${boss.id}-${interval}`,
-            })
+        const notification = new Notification(`${boss.name} spawn dans ${interval} minutes !`, {
+            body: `Le boss ${boss.name} apparaîtra dans ${timeUntil}`,
+            icon: '/seibugun_ico.jpg',
+            tag: `${boss.id}-${interval}`,
+        })
 
-            playNotificationSound(interval)
-
-            // Fermer automatiquement après 10 secondes
-            setTimeout(() => notification.close(), 10000)
-        }
+        // Fermer automatiquement après 10 secondes
+        setTimeout(() => notification.close(), 10000)
     }
 
-    // Fonction de test pour les notifications
-    const testNotification = () => {
-        const testBoss: Boss = {
-            id: 'test',
-            name: 'Karanda',
-            color: '#9c27b0',
-            category: 'world',
-            spawns: []
-        }
 
-        if (notificationPermission === 'granted') {
-            sendNotification(testBoss, '15 minutes', 15)
-            setSnackbar({
-                open: true,
-                message: 'Notification de test envoyée ! 🔔',
-                severity: 'success'
-            })
-        } else if (notificationPermission === 'default') {
-            setSnackbar({
-                open: true,
-                message: 'Veuillez d\'abord autoriser les notifications',
-                severity: 'warning'
-            })
-        } else {
-            setSnackbar({
-                open: true,
-                message: 'Notifications refusées dans votre navigateur',
-                severity: 'error'
-            })
-        }
-    }
 
     // Mettre à jour l'heure chaque minute et vérifier les notifications
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date())
 
-            // Vérifier les notifications selon les intervalles sélectionnés
-            if (notificationsEnabled) {
+            // Vérifier les alertes selon les intervalles sélectionnés (sons + notifications)
+            if (soundEnabled || notificationsEnabled) {
                 const intervals = [
                     { key: 'min5', minutes: 5, enabled: notificationIntervals.min5 },
                     { key: 'min15', minutes: 15, enabled: notificationIntervals.min15 },
@@ -632,7 +597,16 @@ const BossTracker: React.FC = () => {
                                 currentNotifications.add(bossKey)
 
                                 if (!notifiedBosses.has(bossKey)) {
-                                    sendNotification(boss, timeUntil, interval.minutes)
+                                    // Toujours jouer le son si activé (même sans permissions de notification)
+                                    if (soundEnabled) {
+                                        playNotificationSound(interval.minutes)
+                                    }
+
+                                    // Envoyer la notification visuelle seulement si autorisée
+                                    if (notificationsEnabled && notificationPermission === 'granted') {
+                                        sendNotification(boss, timeUntil, interval.minutes)
+                                    }
+
                                     setNotifiedBosses(prev => new Set(prev).add(bossKey))
                                 }
                             } else if (interval.enabled && remainingMinutes > interval.minutes) {
@@ -995,7 +969,7 @@ const BossTracker: React.FC = () => {
                                         label="Sons"
                                     />
 
-                                    {notificationPermission === 'granted' && (
+                                    {notificationPermission === 'granted' ? (
                                         <>
                                             <FormControlLabel
                                                 control={
@@ -1045,28 +1019,69 @@ const BossTracker: React.FC = () => {
                                                             label="30min"
                                                         />
                                                     </Box>
-                                                    {/* <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-                                                        <Button
-                                                            variant="outlined"
-                                                            size="small"
-                                                            startIcon={<TestIcon />}
-                                                            onClick={testNotification}
-                                                            sx={{
-                                                                textTransform: 'none',
-                                                                borderColor: 'primary.main',
-                                                                color: 'primary.main',
-                                                                '&:hover': {
-                                                                    borderColor: 'primary.dark',
-                                                                    backgroundColor: 'primary.main',
-                                                                    color: 'white'
-                                                                }
-                                                            }}
-                                                        >
-                                                            Tester les notifications
-                                                        </Button>
-                                                    </Box> */}
+
                                                 </Box>
                                             )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {/* Paramètres toujours accessibles pour les sons */}
+                                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                                                Alertes avant spawn (sons + notifications) :
+                                            </Typography>
+                                            <Box sx={{ ml: 1 }}>
+                                                <Box sx={{ display: 'flex', gap: 1 }}>
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                checked={notificationIntervals.min5}
+                                                                onChange={(e) => setNotificationIntervals(prev => ({ ...prev, min5: e.target.checked }))}
+                                                                size="small"
+                                                            />
+                                                        }
+                                                        label="5min"
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                checked={notificationIntervals.min15}
+                                                                onChange={(e) => setNotificationIntervals(prev => ({ ...prev, min15: e.target.checked }))}
+                                                                size="small"
+                                                            />
+                                                        }
+                                                        label="15min"
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                checked={notificationIntervals.min30}
+                                                                onChange={(e) => setNotificationIntervals(prev => ({ ...prev, min30: e.target.checked }))}
+                                                                size="small"
+                                                            />
+                                                        }
+                                                        label="30min"
+                                                    />
+                                                </Box>
+                                                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1, fontStyle: 'italic' }}>
+                                                    Les notifications visuelles nécessitent l'autorisation du navigateur
+                                                </Typography>
+                                            </Box>
+                                            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                                                <Button
+                                                    variant="contained"
+                                                    startIcon={<NotificationIcon />}
+                                                    onClick={requestNotificationPermission}
+                                                    sx={{
+                                                        textTransform: 'none',
+                                                        backgroundColor: 'primary.main',
+                                                        '&:hover': {
+                                                            backgroundColor: 'primary.dark'
+                                                        }
+                                                    }}
+                                                >
+                                                    Autoriser les notifications
+                                                </Button>
+                                            </Box>
                                         </>
                                     )}
                                 </Box>
