@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Dialog,
     DialogTitle,
@@ -31,6 +31,7 @@ import {
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
 import GuideResourcesSection from './GuideResourcesSection'
+import { useMatomo } from '../hooks/useMatomo'
 
 interface FishingGuideModalProps {
     open: boolean
@@ -38,6 +39,15 @@ interface FishingGuideModalProps {
 }
 
 const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) => {
+    const { trackEvent } = useMatomo()
+
+    // Tracker l'ouverture du guide
+    useEffect(() => {
+        if (open) {
+            trackEvent('Guide', 'Open', 'Pêche')
+        }
+    }, [open, trackEvent])
+
     const fishingRods = [
         {
             nom: 'Canne à pêche Balenos +10',
@@ -264,7 +274,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 <Divider sx={{ my: 3 }} />
 
                 <Accordion defaultExpanded>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Cannes à Pêche')}
+                    >
                         <Typography variant="h6">🎣 Cannes à Pêche Recommandées</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -312,7 +325,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Équipement Maîtrise')}
+                    >
                         <Typography variant="h6">⚡ Équipement de Maîtrise</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -359,7 +375,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Spots de Pêche')}
+                    >
                         <Typography variant="h6">🗺️ Meilleurs Spots de Pêche</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -408,7 +427,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Grades Poissons')}
+                    >
                         <Typography variant="h6">🐟 Grades de Poissons</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -447,7 +469,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Configuration AFK')}
+                    >
                         <Typography variant="h6">😴 Configuration AFK Optimale</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -474,7 +499,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Vente et Profits')}
+                    >
                         <Typography variant="h6">💰 Vente et Profits</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -514,7 +542,10 @@ const FishingGuideModal: React.FC<FishingGuideModalProps> = ({ open, onClose }) 
                 </Accordion>
 
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary 
+                        expandIcon={<ExpandMoreIcon />}
+                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Pêche - Hotspots')}
+                    >
                         <Typography variant="h6">🎯 Pêche Active (Hotspots)</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
