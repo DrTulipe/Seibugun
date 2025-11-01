@@ -214,13 +214,23 @@ const bossesData: Boss[] = [
         category: 'radiant',
         spawns: [
             { day: 0, time: '02:00' }, // Lundi
-            { day: 1, time: '19:00' }, // Mardi
+            { day: 0, time: '22:15' }, // Lundi
+
+            { day: 1, time: '22:15' }, // Mardi
+
+            { day: 2, time: '00:15' }, // Mercredi
             { day: 2, time: '16:00' }, // Mercredi
+
+            { day: 3, time: '00:15' }, // Jeudi
             { day: 3, time: '19:00' }, // Jeudi
+
             { day: 4, time: '02:00' }, // Vendredi
-            { day: 4, time: '19:00' }, // Vendredi
+            { day: 4, time: '22:15' }, // Vendredi
+
             { day: 5, time: '02:00' }, // Samedi
-            { day: 6, time: '22:15' }, // Dimanche
+            { day: 5, time: '19:00' }, // Samedi
+
+            { day: 6, time: '00:15' }, // Dimanche
         ]
     },
     {
@@ -231,12 +241,21 @@ const bossesData: Boss[] = [
         spawns: [
             { day: 0, time: '00:15' }, // Lundi
             { day: 0, time: '16:00' }, // Lundi
-            { day: 2, time: '16:00' }, // Mercredi
+            { day: 0, time: '22:15' }, // Lundi
+
+            { day: 1, time: '19:00' }, // Mardi
+
+            { day: 2, time: '22:15' }, // Mercredi
+
             { day: 3, time: '16:00' }, // Jeudi
+            { day: 3, time: '19:00' }, // Jeudi
+
             { day: 4, time: '00:15' }, // Vendredi
+            { day: 4, time: '22:15' }, // Vendredi
+
             { day: 5, time: '16:00' }, // Samedi
+
             { day: 6, time: '00:15' }, // Dimanche
-            { day: 6, time: '22:15' }, // Dimanche
         ]
     },
     {
@@ -245,13 +264,22 @@ const bossesData: Boss[] = [
         color: '#4caf50',
         category: 'radiant',
         spawns: [
-            { day: 0, time: '02:00' }, // Lundi
-            { day: 1, time: '02:00' }, // Mardi
-            { day: 1, time: '16:00' }, // Mardi
-            { day: 2, time: '02:00' }, // Mercredi
+            { day: 0, time: '19:00' }, // Lundi
+
+            { day: 1, time: '00:15' }, // Mardi
+            { day: 1, time: '19:00' }, // Mardi
+
+            { day: 2, time: '22:15' }, // Mercredi
+
+            { day: 3, time: '02:00' }, // Jeudi
+            { day: 3, time: '22:15' }, // Jeudi
+
             { day: 4, time: '16:00' }, // Vendredi
-            { day: 4, time: '19:00' }, // Vendredi
+
+            { day: 5, time: '00:15' }, // Samedi
             { day: 5, time: '19:00' }, // Samedi
+
+            { day: 6, time: '02:00' }, // Dimanche
             { day: 6, time: '22:15' }, // Dimanche
         ]
     },
@@ -261,20 +289,23 @@ const bossesData: Boss[] = [
         color: '#ffc107',
         category: 'radiant',
         spawns: [
-            { day: 0, time: '02:00' }, // Lundi
-            { day: 0, time: '12:00' }, // Lundi
-            { day: 1, time: '02:00' }, // Mardi
+            { day: 0, time: '19:00' }, // Lundi
+
+            { day: 1, time: '00:15' }, // Mardi
             { day: 1, time: '16:00' }, // Mardi
-            { day: 1, time: '19:00' }, // Mardi
+            { day: 1, time: '22:15' }, // Mardi
+
             { day: 2, time: '02:00' }, // Mercredi
-            { day: 2, time: '12:00' }, // Mercredi
-            { day: 2, time: '22:15' }, // Mercredi
-            { day: 3, time: '12:00' }, // Jeudi
-            { day: 4, time: '02:00' }, // Vendredi
-            { day: 4, time: '16:00' }, // Vendredi
+
+            { day: 3, time: '00:15' }, // Jeudi
+            { day: 3, time: '22:15' }, // Jeudi
+
             { day: 4, time: '19:00' }, // Vendredi
+
+            { day: 5, time: '00:15' }, // Samedi
             { day: 5, time: '16:00' }, // Samedi
-            { day: 5, time: '19:00' }, // Samedi
+
+            { day: 6, time: '02:00' }, // Dimanche
             { day: 6, time: '22:15' }, // Dimanche
         ]
     },
