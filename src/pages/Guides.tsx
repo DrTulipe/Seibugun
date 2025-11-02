@@ -23,6 +23,7 @@ import AlchemyGuideModal from '../components/AlchemyGuideModal'
 import InfinitePotionsGuideModal from '../components/InfinitePotionsGuideModal'
 import AgricultureGuideModal from '../components/AgricultureGuideModal'
 import FishingGuideModal from '../components/FishingGuideModal'
+import GuildBossGuideModal from '../components/GuildBossGuideModal'
 
 const Guides: React.FC = () => {
     const [trocModalOpen, setTrocModalOpen] = useState(false)
@@ -30,9 +31,10 @@ const Guides: React.FC = () => {
     const [infinitePotionsModalOpen, setInfinitePotionsModalOpen] = useState(false)
     const [agricultureModalOpen, setAgricultureModalOpen] = useState(false)
     const [fishingModalOpen, setFishingModalOpen] = useState(false)
+    const [guildBossModalOpen, setGuildBossModalOpen] = useState(false)
 
     // Liste des guides disponibles avec modal
-    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)', 'Agriculture', 'Pêche']
+    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)', 'Agriculture', 'Pêche', 'Boss de Guilde']
 
     const isGuideAvailable = (guideName: string) => {
         return availableGuides.includes(guideName)
@@ -53,6 +55,8 @@ const Guides: React.FC = () => {
             setAgricultureModalOpen(true)
         } else if (guideName === 'Pêche') {
             setFishingModalOpen(true)
+        } else if (guideName === 'Boss de Guilde') {
+            setGuildBossModalOpen(true)
         }
     }
 
@@ -328,6 +332,12 @@ const Guides: React.FC = () => {
             <FishingGuideModal
                 open={fishingModalOpen}
                 onClose={() => setFishingModalOpen(false)}
+            />
+
+            {/* Modal du Guide des Boss de Guilde */}
+            <GuildBossGuideModal
+                open={guildBossModalOpen}
+                onClose={() => setGuildBossModalOpen(false)}
             />
         </Box>
     )
