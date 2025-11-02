@@ -28,7 +28,6 @@ import {
 import {
     Close as CloseIcon,
     ExpandMore as ExpandMoreIcon,
-    Groups as GuildIcon,
 } from '@mui/icons-material'
 import GuideModalActions from './GuideModalActions'
 import GuideResourcesSection from './GuideResourcesSection'
