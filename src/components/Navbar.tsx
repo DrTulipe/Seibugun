@@ -25,11 +25,11 @@ const Navbar: React.FC = () => {
   const { trackEvent } = useMatomo()
 
   const menuItems = [
-    { label: 'Accueil', path: '/' },
-    { label: 'À propos', path: '/about' },
-    { label: 'Membres', path: '/members' },
-    { label: 'Boss Tracker', path: '/boss-tracker' },
-    { label: 'Guides', path: '/guides' },
+    { label: '🏠 Accueil', path: '/' },
+    { label: '📋 À propos', path: '/about' },
+    { label: '👥 Membres', path: '/members' },
+    { label: '⚔️ Boss Tracker', path: '/boss-tracker' },
+    { label: '📚 Guides', path: '/guides' },
   ]
 
   const handleDrawerToggle = () => {
