@@ -1,6 +1,6 @@
 # Seibugun - Site Web de la Guilde BDO
 
-Site web officiel de la guilde Seibugun pour Black Desert Online, développé avec React, TypeScript et Material-UI.
+Site web officiel de la guilde Seibugun pour Black Desert, développé avec React, TypeScript et Material-UI.
 
 ## ✨ Fonctionnalités
 

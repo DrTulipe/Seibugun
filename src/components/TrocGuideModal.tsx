@@ -141,7 +141,7 @@ const TrocGuideModal: React.FC<TrocGuideModalProps> = ({ open, onClose }) => {
                         📖 Introduction
                     </Typography>
                     <Typography variant="body1" sx={{ mb: 2 }}>
-                        Le troc est un excellent moyen de gagner de l'argent dans Black Desert Online tout en étant semi-AFK.
+                        Le troc est un excellent moyen de gagner de l'argent dans Black Desert tout en étant semi-AFK.
                         Cependant, il y a de nombreux prérequis et vous devrez investir beaucoup de temps et d'argent.
                     </Typography>
 

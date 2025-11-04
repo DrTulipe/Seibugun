@@ -2,7 +2,7 @@
 
 ## 📖 Introduction
 
-Le troc est un excellent moyen de gagner de l'argent dans Black Desert Online tout en étant semi-AFK. Cependant, il y a de nombreux prérequis et vous devrez investir beaucoup d'argent (1 milliard+ de silver) et de temps pour vraiment tirer le meilleur parti du troc.
+Le troc est un excellent moyen de gagner de l'argent dans Black Desert tout en étant semi-AFK. Cependant, il y a de nombreux prérequis et vous devrez investir beaucoup d'argent (1 milliard+ de silver) et de temps pour vraiment tirer le meilleur parti du troc.
 
 ### ⚠️ Prérequis
 - **Niveau 50+** sur votre personnage

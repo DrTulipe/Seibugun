@@ -927,7 +927,7 @@ const BossTracker: React.FC = () => {
             </Typography>
 
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                Suivez en temps réel les prochains spawns des boss de Black Desert Online (horaires CET/CEST)
+                Suivez en temps réel les prochains spawns des boss de Black Desert (horaires CET/CEST)
             </Typography>
 
             {/* Contrôles compacts */}

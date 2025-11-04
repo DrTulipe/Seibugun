@@ -20,12 +20,12 @@ const Footer: React.FC = () => {
               Seibugun
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Guilde Black Desert Online
+              Guilde Black Desert
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
             <Typography variant="h6" gutterBottom>
-              Liens utiles
+              Site de Black desert
             </Typography>
             <Link
               href="https://www.blackdesertonline.com/"
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
               color="inherit"
               sx={{ display: 'block', mb: 1 }}
             >
-              Black Desert Online
+              Black Desert
             </Link>
           </Grid>
         </Grid>

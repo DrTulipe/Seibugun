@@ -34,7 +34,7 @@ interface ToolItem {
 const tools: ToolItem[] = [
     {
         title: 'BDOLytics',
-        description: 'Plateforme complète d\'analyse et de données pour Black Desert Online',
+        description: 'Plateforme complète d\'analyse et de données pour Black Desert',
         url: 'https://bdolytics.com/fr/EU',
         category: 'Analyse',
         icon: <AnalyticsIcon />,
@@ -82,7 +82,7 @@ const tools: ToolItem[] = [
     },
     {
         title: 'Coupons',
-        description: 'Codes promotionnels et coupons actuels pour Black Desert Online',
+        description: 'Codes promotionnels et coupons actuels pour Black Desert',
         url: 'https://garmoth.com/coupons',
         category: 'Promotions',
         icon: <CouponsIcon />,
@@ -110,7 +110,7 @@ const Tools: React.FC = () => {
                     🛠️ Outils Pratiques
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-                    Outils essentiels pour optimiser votre expérience sur Black Desert Online
+                    Outils essentiels pour optimiser votre expérience sur Black Desert
                 </Typography>
             </Box>
 

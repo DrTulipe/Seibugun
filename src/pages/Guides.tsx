@@ -24,6 +24,7 @@ import InfinitePotionsGuideModal from '../components/InfinitePotionsGuideModal'
 import AgricultureGuideModal from '../components/AgricultureGuideModal'
 import FishingGuideModal from '../components/FishingGuideModal'
 import GuildBossGuideModal from '../components/GuildBossGuideModal'
+import GuildQuestsGuideModal from '../components/GuildQuestsGuideModal'
 
 const Guides: React.FC = () => {
     const [trocModalOpen, setTrocModalOpen] = useState(false)
@@ -32,9 +33,10 @@ const Guides: React.FC = () => {
     const [agricultureModalOpen, setAgricultureModalOpen] = useState(false)
     const [fishingModalOpen, setFishingModalOpen] = useState(false)
     const [guildBossModalOpen, setGuildBossModalOpen] = useState(false)
+    const [guildQuestsModalOpen, setGuildQuestsModalOpen] = useState(false)
 
     // Liste des guides disponibles avec modal
-    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)', 'Agriculture', 'Pêche', 'Boss de Guilde']
+    const availableGuides = ['Troc', 'Alchimie', 'Potions infinies (HP et MP)', 'Agriculture', 'Pêche', 'Boss de Guilde', 'Quêtes de Guilde']
 
     const isGuideAvailable = (guideName: string) => {
         return availableGuides.includes(guideName)
@@ -57,6 +59,8 @@ const Guides: React.FC = () => {
             setFishingModalOpen(true)
         } else if (guideName === 'Boss de Guilde') {
             setGuildBossModalOpen(true)
+        } else if (guideName === 'Quêtes de Guilde') {
+            setGuildQuestsModalOpen(true)
         }
     }
 
@@ -69,7 +73,7 @@ const Guides: React.FC = () => {
                 { name: 'Création de personnage', icon: '👤' },
                 { name: 'Premiers pas dans le monde', icon: '🌍' },
                 { name: 'Interface et contrôles', icon: '🎮' },
-                { name: 'Système de quêtes', icon: '📜' },
+                { name: 'Serveurs Saisonniers', icon: '📜' },
             ],
             color: 'primary.main',
         },
@@ -92,7 +96,6 @@ const Guides: React.FC = () => {
             icon: <GroupIcon sx={{ fontSize: 48, color: 'warning.main' }} />,
             guides: [
                 { name: 'Quêtes de Guilde', icon: '📜' },
-                { name: 'Salaires', icon: '💰' },
                 { name: 'Boss de Guilde', icon: '🐉' },
             ],
             color: 'warning.main',
@@ -103,7 +106,7 @@ const Guides: React.FC = () => {
             icon: <GameIcon sx={{ fontSize: 48, color: 'info.main' }} />,
             guides: [
                 { name: 'Cristaux', icon: '📈' },
-                { name: 'Succession vs Éveil', icon: '🔀' },
+                { name: 'Succession, Éveil et Renaissance', icon: '🔀' },
                 { name: 'Équipement recommandé', icon: '🎯' },
             ],
             color: 'info.main',
@@ -133,7 +136,6 @@ const Guides: React.FC = () => {
             icon: <DefenseIcon sx={{ fontSize: 48, color: 'error.main' }} />,
             guides: [
                 { name: 'Stratégies Arène de Solare', icon: '⚡' },
-                { name: 'Gestion des CCs en PvP', icon: '🎯' },
                 { name: 'Node Wars & Siege', icon: '🏰' },
                 { name: 'Serveur Arsha', icon: '⚔️' },
             ],
@@ -160,7 +162,7 @@ const Guides: React.FC = () => {
                     Guides Seibugun
                 </Typography>
                 <Typography variant="h6" sx={{ opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
-                    Retrouvez tous nos guides pour progresser efficacement dans Black Desert Online.
+                    Retrouvez tous nos guides pour progresser efficacement dans Black Desert.
                     Des conseils pour débutants aux stratégies avancées !
                 </Typography>
             </Paper>
@@ -169,7 +171,7 @@ const Guides: React.FC = () => {
             <Box sx={{ mb: 3, textAlign: 'center' }}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" alignItems="center">
                     <Chip
-                        label="✅ Guide interactif disponible"
+                        label="✅ Guide disponible"
                         color="success"
                         variant="filled"
                         size="small"
@@ -338,6 +340,12 @@ const Guides: React.FC = () => {
             <GuildBossGuideModal
                 open={guildBossModalOpen}
                 onClose={() => setGuildBossModalOpen(false)}
+            />
+
+            {/* Modal du Guide des Quêtes de Guilde */}
+            <GuildQuestsGuideModal
+                open={guildQuestsModalOpen}
+                onClose={() => setGuildQuestsModalOpen(false)}
             />
         </Box>
     )
