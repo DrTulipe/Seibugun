@@ -53,30 +53,19 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
 
     const missionTypes = [
         {
-            type: 'Subjugation',
-            description: 'Éliminer des monstres spécifiques',
-            icon: '⚔️',
-            examples: 'Ferrid, Ancient Puturum, Giant Mudster, Khan',
-            rewards: 'Scrolls de boss de guilde, expérience de guilde élevée',
-            difficulty: 'Élevée',
-            duration: '2-6h'
-        },
-        {
             type: 'Gathering',
             description: 'Collecter des ressources spécifiques',
             icon: '🔨',
             examples: 'Minerais, Bois, Plantes, Sang',
-            rewards: 'Argent, expérience de guilde, matériaux',
-            difficulty: 'Faible',
+            rewards: 'Argent, expérience de guilde, Jus',
             duration: '1-3h'
         },
         {
-            type: 'Crafting',
+            type: 'Cuisine / Alchimie',
             description: 'Fabriquer des objets spécifiques',
             icon: '🔧',
             examples: 'Alchimie, Cuisine, Processing, Manufacture',
-            rewards: 'Argent, expérience de guilde, objets utiles',
-            difficulty: 'Moyenne',
+            rewards: 'Argent, expérience de guilde, Jus',
             duration: '2-4h'
         },
         {
@@ -84,8 +73,7 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             description: 'Commerce et transport',
             icon: '🚛',
             examples: 'Livraisons, Bartering, Transport de marchandises',
-            rewards: 'Argent élevé, expérience de commerce',
-            difficulty: 'Moyenne',
+            rewards: 'Argent, expérience de guilde, Jus',
             duration: '1-4h'
         },
         {
@@ -93,8 +81,7 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             description: 'Pêche de poissons spécifiques',
             icon: '🎣',
             examples: 'Poissons rares, Quantités importantes, Zones spécifiques',
-            rewards: 'Argent, reliques, matériaux',
-            difficulty: 'Faible',
+            rewards: 'Argent, expérience de guilde, Jus',
             duration: '2-5h'
         },
         {
@@ -102,33 +89,40 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             description: 'Chasse aux monstres marins',
             icon: '🐙',
             examples: 'Candidum, Hekaru, Goldmont Pirate Ship',
-            rewards: 'Matériaux de boss marin, argent élevé',
-            difficulty: 'Très élevée',
+            rewards: 'Argent, expérience de guilde, Jus',
+            duration: '1-3h'
+        },
+        {
+            type: 'Monsters',
+            description: 'Chasse aux monstres',
+            icon: '🐙',
+            examples: 'Tuer 2500, 5000, 10000 monstres',
+            rewards: 'Argent, expérience de guilde, Jus',
             duration: '1-3h'
         }
     ]
 
     const guildSizes = [
         {
-            size: 'Small (10-29 membres)',
+            size: 'Small (1-30 membres)',
             maxDailyMissions: 6,
             availableMissions: 'Niveaux 1-6',
             description: 'Idéal pour débuter, missions simples'
         },
         {
-            size: 'Medium (30-49 membres)',
+            size: 'Medium (31-50 membres)',
             maxDailyMissions: 8,
             availableMissions: 'Niveaux 1-12',
             description: 'Équilibre entre accessibilité et récompenses'
         },
         {
-            size: 'Large (50-99 membres)',
+            size: 'Large (51-75 membres)',
             maxDailyMissions: 10,
             availableMissions: 'Niveaux 1-17',
-            description: 'Accès aux missions les plus difficiles'
+            description: 'Accès aux missions plus difficiles'
         },
         {
-            size: 'Extra Large (100+ membres)',
+            size: 'Extra Large (76+ membres)',
             maxDailyMissions: 10,
             availableMissions: 'Niveaux 1-18',
             description: 'Toutes les missions disponibles'
@@ -142,23 +136,20 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             pieces: 4,
             frequency: 'Une fois par semaine',
             difficulty: 'Moyenne',
-            loot: 'Mark of Shadow, objets TET'
         },
         {
-            boss: 'Ancient Puturum',
+            boss: 'Puturum',
             requirement: 'Missions de Subjugation',
             pieces: 4,
             frequency: 'Une fois par semaine',
             difficulty: 'Élevée',
-            loot: 'Dim Tree Spirit Armor, objets TET'
         },
         {
-            boss: 'Giant Mudster',
+            boss: 'Boustre Géant',
             requirement: 'Missions de Subjugation',
             pieces: 4,
             frequency: 'Une fois par semaine',
             difficulty: 'Élevée',
-            loot: 'Muskan Shoes, objets TET'
         },
         {
             boss: 'Khan',
@@ -166,7 +157,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             pieces: 4,
             frequency: 'Une fois par semaine',
             difficulty: 'Très élevée',
-            loot: 'Kzarka Weapon, objets TET/PEN'
         }
     ]
 
@@ -198,8 +188,8 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
 
     const guildQuestVideos = [
         {
-            title: 'Guide Complet des Guildes BDO',
-            videoId: 'dQw4w9WgXcQ' // Placeholder - remplacer par vraie vidéo
+            title: 'Guide Quêtes de Guilde',
+            videoId: 'UzW9UcgZJX0' // Placeholder - remplacer par vraie vidéo
         }
     ]
 
@@ -213,7 +203,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
         >
             <DialogTitle>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <GroupIcon sx={{ fontSize: 32, color: 'warning.main' }} />
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                         📜 Guide des Quêtes de Guilde
                     </Typography>
@@ -247,19 +236,10 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                         </ListItem>
                         <ListItem>
                             <ListItemIcon>
-                                <Typography variant="h6">🔄</Typography>
-                            </ListItemIcon>
-                            <ListItemText
-                                primary="Les missions se renouvellent toutes les 10 minutes"
-                                primaryTypographyProps={{ color: 'text.primary' }}
-                            />
-                        </ListItem>
-                        <ListItem>
-                            <ListItemIcon>
                                 <Typography variant="h6">👥</Typography>
                             </ListItemIcon>
                             <ListItemText
-                                primary="Une seule mission peut être active à la fois"
+                                primary="Une seule mission peut être active à la fois par serveur"
                                 primaryTypographyProps={{ color: 'text.primary' }}
                             />
                         </ListItem>
@@ -294,7 +274,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                                         <TableCell><strong>Type</strong></TableCell>
                                         <TableCell><strong>Description</strong></TableCell>
                                         <TableCell><strong>Exemples</strong></TableCell>
-                                        <TableCell><strong>Difficulté</strong></TableCell>
                                         <TableCell><strong>Durée</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -309,17 +288,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                                             </TableCell>
                                             <TableCell>{mission.description}</TableCell>
                                             <TableCell>{mission.examples}</TableCell>
-                                            <TableCell>
-                                                <Chip
-                                                    label={mission.difficulty}
-                                                    color={
-                                                        mission.difficulty === 'Très élevée' ? 'error' :
-                                                            mission.difficulty === 'Élevée' ? 'warning' :
-                                                                mission.difficulty === 'Moyenne' ? 'info' : 'success'
-                                                    }
-                                                    size="small"
-                                                />
-                                            </TableCell>
                                             <TableCell>{mission.duration}</TableCell>
                                         </TableRow>
                                     ))}
@@ -365,13 +333,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                                 </TableBody>
                             </Table>
                         </TableContainer>
-
-                        <Alert severity="warning" sx={{ mt: 2 }}>
-                            <Typography variant="body2">
-                                <strong>Important:</strong> Les missions se renouvellent toutes les 10 minutes.
-                                Une seule mission peut être active à la fois par guilde.
-                            </Typography>
-                        </Alert>
                     </AccordionDetails>
                 </Accordion>
 
@@ -397,7 +358,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                                         <TableCell><strong>Pièces Requises</strong></TableCell>
                                         <TableCell><strong>Fréquence</strong></TableCell>
                                         <TableCell><strong>Difficulté</strong></TableCell>
-                                        <TableCell><strong>Loot Principal</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -419,7 +379,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                                                     size="small"
                                                 />
                                             </TableCell>
-                                            <TableCell>{boss.loot}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -512,52 +471,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                     </AccordionDetails>
                 </Accordion>
 
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        onClick={() => trackEvent('Guide', 'Section_Expand', 'Quêtes de Guilde - Stratégies')}
-                    >
-                        <Typography variant="h6">💡 Stratégies et Conseils</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography variant="h6" gutterBottom color="success.main">
-                            Conseils d'Optimisation
-                        </Typography>
-                        <List dense>
-                            {missionTips.map((tip, index) => (
-                                <ListItem key={index}>
-                                    <ListItemIcon>
-                                        <CheckCircleIcon color="success" fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={tip}
-                                        primaryTypographyProps={{ color: 'text.primary' }}
-                                    />
-                                </ListItem>
-                            ))}
-                        </List>
-
-                        <Box sx={{ mt: 3, p: 2, bgcolor: 'info.light', borderRadius: 1 }}>
-                            <Typography variant="h6" gutterBottom color="info.contrastText">
-                                <AccessTimeIcon sx={{ mr: 1, verticalAlign: 'bottom' }} />
-                                Planning Optimal des Missions
-                            </Typography>
-                            <Typography variant="body2" color="info.contrastText">
-                                <strong>Matin (Reset) :</strong> Mission de Subjugation pour les scrolls de boss<br />
-                                <strong>Après-midi :</strong> Missions de Gathering/Crafting faciles et rapides<br />
-                                <strong>Soir :</strong> Missions de groupe (Sea Monsters, gros Subjugation)
-                            </Typography>
-                        </Box>
-
-                        <Alert severity="info" sx={{ mt: 2 }}>
-                            <Typography variant="body2">
-                                <strong>Rappel:</strong> Les missions se renouvellent toutes les 10 minutes.
-                                Planifiez votre journée en conséquence et gardez un œil sur les missions de haute priorité qui apparaissent.
-                            </Typography>
-                        </Alert>
-                    </AccordionDetails>
-                </Accordion>
-
                 <GuideResourcesSection
                     topic="des quêtes de guilde"
                     resources={guildQuestResources}
@@ -577,11 +490,9 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
                     </Typography>
                     <Typography variant="body2" color="text.primary">
                         <strong>Priorités Essentielles :</strong><br />
-                        1. Scrolls de boss (Ferrid, Puturum, Mudster, Khan)<br />
+                        1. Scrolls de boss (Ferrid, Puturum, Boustre, Khan)<br />
                         2. Missions de niveau élevé pour l'EXP de guilde<br />
                         3. Coordination avec les membres actifs<br />
-                        4. Utilisation des buffs de guilde pendant les missions<br />
-                        <strong>Rentabilité :</strong> Les scrolls de boss peuvent rapporter plusieurs milliards d'argent
                     </Typography>
                 </Box>
             </DialogContent>
