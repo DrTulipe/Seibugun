@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://seibugun.fr/sitemap.xml
+
+# Directives pour les moteurs de recherche
+Disallow: /api/
+Disallow: /_next/
+Disallow: /node_modules/

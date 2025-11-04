@@ -26,9 +26,7 @@ import {
 import {
     ExpandMore as ExpandMoreIcon,
     Close as CloseIcon,
-    Group as GroupIcon,
     CheckCircle as CheckCircleIcon,
-    AccessTime as AccessTimeIcon,
     MonetizationOn as MonetizationOnIcon,
     EmojiEvents as EmojiEventsIcon
 } from '@mui/icons-material'
@@ -158,17 +156,6 @@ const GuildQuestsGuideModal: React.FC<GuildQuestsGuideModalProps> = ({ open, onC
             frequency: 'Une fois par semaine',
             difficulty: 'Très élevée',
         }
-    ]
-
-    const missionTips = [
-        'Vérifiez les prérequis de niveau et d\'équipement avant d\'accepter',
-        'Coordonnez-vous avec les membres pour les missions de groupe',
-        'Préparez les matériaux nécessaires pour les missions de craft',
-        'Priorisez les missions donnant des scrolls de boss',
-        'Alternez entre missions faciles et difficiles',
-        'Utilisez les buffs de guilde pendant les missions',
-        'Les récompenses individuelles dépendent de votre contribution',
-        'L\'expérience de guilde augmente avec la difficulté'
     ]
 
     const guildQuestResources = [
