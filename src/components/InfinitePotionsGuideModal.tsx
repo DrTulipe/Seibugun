@@ -64,7 +64,7 @@ const InfinitePotionsGuideModal: React.FC<InfinitePotionsGuideModalProps> = ({ o
         {
             name: "Clochettes de Ron ancestrales",
             pityPiece: "Clochettes Inaltérées x100",
-            location: "Forest Ronaros (Tooth Fairy Forest)",
+            location: "Forêt des Ronaros (Forêt des Fées des Dents)",
             monsters: ["Gardien Ronaros forestier", "Chasseur Ronaros forestier"],
             minAP: 190,
             additional: "Afuaru (Pity Pieces de tous les monstres)",
