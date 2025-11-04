@@ -19,6 +19,7 @@ import {
     LocationOn as LocationIcon,
     LocalOffer as CouponsIcon,
     OpenInNew as ExternalLinkIcon,
+    MenuBook as MenuBookIcon,
 } from '@mui/icons-material'
 
 interface ToolItem {
@@ -86,6 +87,14 @@ const tools: ToolItem[] = [
         category: 'Promotions',
         icon: <CouponsIcon />,
         color: '#607d8b',
+    },
+    {
+        title: 'BDOCodex',
+        description: 'Base de données complète des objets, quêtes et informations de BDO',
+        url: 'https://bdocodex.com/fr/',
+        category: 'Base de données',
+        icon: <MenuBookIcon />,
+        color: '#673ab7',
     },
 ]
 
