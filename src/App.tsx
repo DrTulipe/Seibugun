@@ -6,6 +6,7 @@ import About from './pages/About'
 import Members from './pages/Members'
 import BossTracker from './pages/BossTracker'
 import Guides from './pages/Guides'
+import Tools from './pages/Tools'
 import Footer from './components/Footer'
 import { useMatomoPageTracker } from './hooks/useMatomo'
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/members" element={<Members />} />
           <Route path="/boss-tracker" element={<BossTracker />} />
           <Route path="/guides" element={<Guides />} />
+          <Route path="/tools" element={<Tools />} />
         </Routes>
       </Container>
       <Footer />

@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
     { label: '👥 Membres', path: '/members' },
     { label: '⚔️ Boss Tracker', path: '/boss-tracker' },
     { label: '📚 Guides', path: '/guides' },
+    { label: '🛠️ Outils', path: '/tools' },
   ]
 
   const handleDrawerToggle = () => {
