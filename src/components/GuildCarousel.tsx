@@ -17,6 +17,7 @@ import {
     School as SchoolIcon,
     Photo as PhotoIcon,
     Event as EventIcon,
+    LocalOffer as CouponsIcon,
 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
@@ -83,6 +84,17 @@ const slides: CarouselSlide[] = [
         isExternal: true,
         icon: <PhotoIcon sx={{ fontSize: 48 }} />,
         backgroundColor: 'linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%)',
+    },
+    {
+        id: 6,
+        title: "Coupons & Promos",
+        subtitle: "Ne ratez aucun bon plan !",
+        description: "Coupons à récupérer impérativement, plus de 20 000 Crons offerts, 10 000 Loyalties et pleins d'autres cadeaux !",
+        buttonText: "Voir les coupons",
+        buttonLink: "https://garmoth.com/coupons",
+        isExternal: true,
+        icon: <CouponsIcon sx={{ fontSize: 48 }} />,
+        backgroundColor: 'linear-gradient(135deg, #e91e63 0%, #ad1457 100%)',
     },
 ]
 
