@@ -41,15 +41,15 @@ const Members: React.FC = () => {
       class: 'Sorceress',
       joinedDate: '2023-02-20',
     },
-    {
-      id: 3,
-      name: 'Loukohts',
-      discord: 'pyjman',
-      role: 'Officier d\'état major',
-      activity: 'Grind, Lifeskill',
-      class: 'Ranger',
-      joinedDate: '2023-03-10',
-    },
+    // {
+    //   id: 3,
+    //   name: 'Loukohts',
+    //   discord: 'pyjman',
+    //   role: 'Officier d\'état major',
+    //   activity: 'Grind, Lifeskill',
+    //   class: 'Ranger',
+    //   joinedDate: '2023-03-10',
+    // },
     {
       id: 4,
       name: 'Itzhak',
@@ -59,15 +59,15 @@ const Members: React.FC = () => {
       class: 'Wizard',
       joinedDate: '2023-04-05',
     },
-    {
-      id: 5,
-      name: 'Hulud',
-      discord: 'pyopp',
-      role: 'Officier',
-      activity: 'Grind',
-      class: 'Berserker',
-      joinedDate: '2023-05-12',
-    },
+    // {
+    //   id: 5,
+    //   name: 'Hulud',
+    //   discord: 'pyopp',
+    //   role: 'Officier',
+    //   activity: 'Grind',
+    //   class: 'Berserker',
+    //   joinedDate: '2023-05-12',
+    // },
     {
       id: 6,
       name: 'Yuu_Kun',
@@ -77,15 +77,15 @@ const Members: React.FC = () => {
       class: 'Tamer',
       joinedDate: '2023-06-18',
     },
-    {
-      id: 7,
-      name: 'Psycokiwi',
-      discord: 'psycomax',
-      role: 'Officier',
-      activity: 'Grind, Lifeskill',
-      class: 'Tamer',
-      joinedDate: '2023-06-18',
-    },
+    // {
+    //   id: 7,
+    //   name: 'Psycokiwi',
+    //   discord: 'psycomax',
+    //   role: 'Officier',
+    //   activity: 'Grind, Lifeskill',
+    //   class: 'Tamer',
+    //   joinedDate: '2023-06-18',
+    // },
     {
       id: 8,
       name: 'Lysvent',
@@ -95,9 +95,6 @@ const Members: React.FC = () => {
       class: 'Tamer',
       joinedDate: '2023-06-18',
     },
-  ]
-
-  const activeMembers: Member[] = [
     {
       id: 9,
       name: 'Ed_Eletek',
@@ -106,14 +103,18 @@ const Members: React.FC = () => {
       class: 'Warrior',
       joinedDate: '2024-01-10',
     },
-    {
-      id: 10,
-      name: 'Noctifere',
-      role: 'Membre',
-      activity: 'Grind, Lifeskill',
-      class: 'Witch',
-      joinedDate: '2024-02-15',
-    },
+  ]
+
+  const activeMembers: Member[] = [
+
+    // {
+    //   id: 10,
+    //   name: 'Noctifere',
+    //   role: 'Membre',
+    //   activity: 'Grind, Lifeskill',
+    //   class: 'Witch',
+    //   joinedDate: '2024-02-15',
+    // },
     {
       id: 11,
       name: 'Palas',
@@ -122,14 +123,14 @@ const Members: React.FC = () => {
       class: 'Ninja',
       joinedDate: '2024-03-20',
     },
-    {
-      id: 12,
-      name: 'Warfayer',
-      role: 'Membre',
-      activity: 'Grind',
-      class: 'Mystic',
-      joinedDate: '2024-04-12',
-    },
+    // {
+    //   id: 12,
+    //   name: 'Warfayer',
+    //   role: 'Membre',
+    //   activity: 'Grind',
+    //   class: 'Mystic',
+    //   joinedDate: '2024-04-12',
+    // },
     {
       id: 13,
       name: 'Decarro',
@@ -146,12 +147,20 @@ const Members: React.FC = () => {
       class: 'Kunoichi',
       joinedDate: '2024-06-14',
     },
+    // {
+    //   id: 15,
+    //   name: 'Dhaksol',
+    //   role: 'Membre',
+    //   activity: 'Grind',
+    //   class: 'Dark Knight',
+    //   joinedDate: '2024-07-22',
+    // },
     {
-      id: 15,
-      name: 'Dhaksol',
+      id: 16,
+      name: 'Azllz',
       role: 'Membre',
       activity: 'Grind',
-      class: 'Dark Knight',
+      class: 'Mystique',
       joinedDate: '2024-07-22',
     },
   ]
